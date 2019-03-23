@@ -1,17 +1,27 @@
 import json
 from pprint import  pprint
+from datetime import date
+from datetime import timedelta
 import requests
 
-url = ('https://newsapi.org/v2/everything?'
-       'q=Google&'
-       'from=2019-03-14&'
-       'sortBy=popularity&'
-       'apiKey=22d271b54d1845858fbddf96cb9d20d2')
+class Webscraper:
+    def __init__(self):
+        self.url = ''
+        self.response = []
+        self.headlines = []
+    def getHeadlines(self, ticker):
+        self.url = ('https://newsapi.org/v2/everything?'
+                'q=' + ticker + '&'
+                'from=' + str(date.today() + timedelta(days=-5)) + '&'
+                'sortBy=popularity&'
+                'apiKey=22d271b54d1845858fbddf96cb9d20d2')
 
-response = requests.get(url)
-
-with open('googletest.json', 'w') as outfile:
-       json.dump(response.json(), outfile)
+        self.response = requests.get(self.url).json()
+        for article in self.response["articles"]:
+            self.headlines.append(article["title"])
+        return self.headlines
+        #with open('googletest.json', 'w') as outfile:
+            #json.dump(self.response, outfile)
 
 
 #print (response.json)
