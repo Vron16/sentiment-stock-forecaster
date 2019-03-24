@@ -57,4 +57,4 @@ def getASI(stock_Data, priceSamplesPerDay, priceSamplesToday):
 
     return ASI
 
-print(getASI([2,4,5,6,3,6,3,4,4,3,2,4,5,1,1],3,3))
+#print(getASI([2,4,5,6,3,6,3,4,4,3,2,4,5,1,1],3,3))
