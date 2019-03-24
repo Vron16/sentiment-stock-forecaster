@@ -3,7 +3,6 @@ from statsmodels.tsa.arima_model import ARIMA
 
 #----------------- Rate of Change ------------------#
 
-
 numDays = 1
 
 def calculateROC(closing, now, nAgo):
@@ -25,7 +24,6 @@ def printRocs(rocs):
     for r in rocs:
         print(r)
 
-
 #TODO: get closing by parsing through 5 min intervals list
 def getClosingPrices(times, list):
     prices = []
@@ -37,17 +35,15 @@ def getClosingPrices(times, list):
 def getRateOfChange(stockData):
     times = stockData[0]
     fiveMinList = stockData[4]
-    
+
     closing = getClosingPrices(times, fiveMinList)
     rocs = nDayRateOfChange(0, closing)
-    printRocs(rocs)
+    return rocs
 
 
 #----------------- Stochastic Oscillator ------------------#
 
-
 numDays = 1
-
 
 def calculateSO(closing, high, low, cur, now, nAgo):
     highPrice = findHighest(high, now, nAgo)
@@ -89,42 +85,61 @@ def nDayOscillation(num,closing,high,low,cur):
         i+=num
     return sos
 
+
 def printSO(so):
     print("SO:")
     for s in so:
         print(s)
 
-#TODO: get closing by parsing through 5 min intervals list
-def getClosingPrices(list):
-    return [1, 2, 3, 4, 5, 6, 4, 3, 2, 1]
+def getClosingPrices(times, list):
+    prices = []
+    for i in range(len(times)):
+        if times[i].hour == 16:
+            prices.append(list[i])
+    return prices
 
 #TODO: get high by parsing through 5 min intervals list
-def getHighPrices(list):
-    return [1, 2, 3, 4, 5, 6, 4, 3, 2, 1]
+def getHighPrices(times, list):
+    prices = []
+    highest = 0
+    for i in range(len(times)):
+        if list[i] > highest:
+            highest = list[i]
+        if times[i].hour == 16:
+            prices.append(highest)
+            highest = 0
+    return prices
 
 #TODO: get low by parsing through 5 min intervals list
-def getLowPrices(list):
-    return [1, 2, 3, 4, 5, 6, 4, 3, 2, 1]
+def getLowPrices(times, list):
+    prices = []
+    lowest = float("inf")
+    for i in range(len(times)):
+        if list[i] < lowest:
+            lowest = list[i]
+        if times[i].hour == 16:
+            prices.append(lowest)
+            lowest = float("inf")
+    return prices
 
-#TODO: get cur by parsing through 5 min intervals list
 def getCurPrice(list):
     #newest price at the beginning of list
     return list[0]
 
-def getStochasticOscillator():
-    #TODO: add the list from database
-    fiveMinList = [1, 2, 3, 4, 5, 6, 4, 3, 2, 1]
+def getStochasticOscillator(stockData):
+    times = stockData[0]
+    highFiveMinList = stockData[1]
+    lowFiveMinList = stockData[2]
+    fiveMinList = stockData[4]
 
-    #lists
-    closing = getClosingPrices(fiveMinList)
-    high = getHighPrices(fiveMinList)
-    low = getLowPrices(fiveMinList)
-
-    #current price
+    #prices list and current price
+    closing = getClosingPrices(times, fiveMinList)
+    high = getHighPrices(times, highFiveMinList)
+    low = getLowPrices(times, lowFiveMinList)
     cur = getCurPrice(fiveMinList)
 
     so = nDayOscillation(numDays, closing, high, low, cur)
-    printSO(so)
+    return so
 
 
 #----------------- ARIMA ------------------#
