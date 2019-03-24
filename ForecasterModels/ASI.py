@@ -52,6 +52,7 @@ def getASI(stock_Data, priceSamplesPerDay, priceSamplesToday):
     chunkSize = 2*priceSamplesPerDay
     while chunkSize <= length - priceSamplesToday:
         ASI.append(getSwing(stock_Data[0:chunkSize],priceSamplesPerDay,priceSamplesPerDay))
+        chunkSize += priceSamplesPerDay
     ASI.append(getSwing(stock_Data, priceSamplesPerDay, priceSamplesToday))
 
     return ASI
