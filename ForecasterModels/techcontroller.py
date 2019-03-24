@@ -28,13 +28,13 @@ def getStockData(stock_name):
     return (time_stamps, high_prices, low_prices, open_prices, close_prices)
 
 def getPrediction(stock_name):
-    stock_data = mm.getStockData(stock_name)    
+    stock_data = getStockData(stock_name)    
     roc = mm.getRateOfChange(stock_data) #array
     stoch_os = mm.getStochasticOscillator(stock_data) #array
     asi = mm.getASI(stock_data) #array
     arima_prediction = mm.getARIMA(stock_data[4]) #double
     
-    prediction = aggregatePrediction(roc, stoch_os, asi, arima_prediction)
+    prediction = mm.aggregatePrediction(roc, stoch_os, asi, arima_prediction)
     return
   
 def storePrediction():
