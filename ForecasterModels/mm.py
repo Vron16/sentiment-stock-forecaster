@@ -25,14 +25,20 @@ def printRocs(rocs):
     for r in rocs:
         print(r)
 
-#TODO: get closing by parsing through 5 min intervals list
-def getClosingPrices(list):
-    return [1,2,3,4,5,6,5,4,3,2,1]
 
-def getRateOfChange():
-    #TODO: add the list from database
-    fiveMinList = []
-    closing = getClosingPrices(fiveMinList)
+#TODO: get closing by parsing through 5 min intervals list
+def getClosingPrices(times, list):
+    prices = []
+    for i in range(len(times)):
+        if times[i].hour == 16:
+            prices.append(list[i])
+    return prices
+
+def getRateOfChange(stockData):
+    times = stockData[0]
+    fiveMinList = stockData[4]
+    
+    closing = getClosingPrices(times, fiveMinList)
     rocs = nDayRateOfChange(0, closing)
     printRocs(rocs)
 
