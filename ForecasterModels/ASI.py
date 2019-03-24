@@ -1,29 +1,29 @@
 def getSwing(stock_Data, priceSamplesPerDay, priceSamplesToday):
     length = len(stock_Data)
-    t = 100 #t has to be user defined
+    t = 100 #t has to be user defined, not sure what a good number is
     C = stock_Data[length-1] #today's closing price
     Cy = stock_Data[length-1-priceSamplesToday] #yesterdays closing price
     O = stock_Data[length - priceSamplesToday] #today's opening price
     Oy = stock_Data[length - priceSamplesToday - priceSamplesPerDay] #yesterdays opening price
 
-    yesterdaysPrices = [priceSamplesPerDay] #make a list of yesterdays prices
+    yesterdaysPrices = [] #make a list of yesterdays prices
     i = 0 #counter
     Hy = 0 #yesterdays high price
     Ly = Cy #yesterdays low price
     while i < priceSamplesPerDay:
-        yesterdaysPrices[i] = stock_Data[length - priceSamplesToday - priceSamplesPerDay + i]
+        yesterdaysPrices.append(stock_Data[length - priceSamplesToday - priceSamplesPerDay + i])
         if yesterdaysPrices[i] > Hy:
             Hy = yesterdaysPrices[i]
         if yesterdaysPrices[i] < Ly:
             Ly = yesterdaysPrices[i]
         i += 1
 
-    todaysPrices = [priceSamplesToday]
+    todaysPrices = []
     i = 0
     H = 0
     L = C
     while i < priceSamplesToday:
-        todaysPrices[i] = stock_Data[length - priceSamplesToday + i]
+        todaysPrices.append(stock_Data[length - priceSamplesToday + i])
         if todaysPrices[i] > H:
             H = todaysPrices[i]
         if todaysPrices[i] < L:
@@ -56,3 +56,5 @@ def getASI(stock_Data, priceSamplesPerDay, priceSamplesToday):
     ASI.append(getSwing(stock_Data, priceSamplesPerDay, priceSamplesToday))
 
     return ASI
+
+print(getASI([2,4,5,6,3,6,3,4,4,3,2,4,5,1,1],3,3))
