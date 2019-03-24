@@ -1,4 +1,5 @@
 def getSwing(stock_Data, priceSamplesPerDay, priceSamplesToday):
+    stock_Data.reverse()
     length = len(stock_Data)
     t = 100 #t has to be user defined, not sure what a good number is
     C = stock_Data[length-1] #today's closing price
@@ -46,15 +47,24 @@ def getSwing(stock_Data, priceSamplesPerDay, priceSamplesToday):
 
 #To get ASI you get the swing for every day in the dataset
 
-def getASI(stock_Data, priceSamplesPerDay, priceSamplesToday):
+def getASI(stock_Data):
+
+    times = stock_Data[0]
+    high_prices = stock_Data[1]
+
+    todaySamples = 0
+    yesterdaySamples = 0
+
     ASI = []
-    length = len(stock_Data)
-    chunkSize = 2*priceSamplesPerDay
-    while chunkSize <= length - priceSamplesToday:
-        ASI.append(getSwing(stock_Data[0:chunkSize],priceSamplesPerDay,priceSamplesPerDay))
-        chunkSize += priceSamplesPerDay
-    ASI.append(getSwing(stock_Data, priceSamplesPerDay, priceSamplesToday))
+    for k in range(len(times)):
+        if times[k] == times[k+1]:
+            todaySamples += 1
+        else:
+            if yesterdaySamples != 0:
+                ASI.append(getSwing(high_prices[k-todaySamples-yesterdaySamples:k-1],yesterdaySamples,todaySamples))
+            yesterdaySamples = todaySamples
+            todaySamples = 0
+
+    ASI.reverse()
 
     return ASI
-
-#print(getASI([2,4,5,6,3,6,3,4,4,3,2,4,5,1,1],3,3))
