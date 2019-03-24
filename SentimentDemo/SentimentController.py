@@ -32,23 +32,30 @@ e1 = Entry(top)
 e1.place(x=680,  y=550)
 
 
-
 ##########################################################
 def main():
     sentCalculator = SentimentCalculator()
     webScraper = Webscraper()
     sentPredictor = SentimentPredictor()
-    headlines = requestHeadlines(webScraper, e1.get())
-    avgScore = calcAvgSentScore(sentCalculator, headlines)
-    avgScore1 = str(avgScore)
-    e11 = str(e1.get())
-    updateDB(avgScore1, e11)
 
-    messagebox.showinfo("Result",
-                        " The first 5 headlines are: " + "\n" + printHeadlines(headlines)
-                        + "\n\n" + "Average Score of all Headlines Analyzed is: " + str(avgScore)
-                        + "\n\n" + requestPrediction(sentPredictor, avgScore))
+    x = search_stock_symbol(e1.get())
 
+    if x == 1:
+        headlines = requestHeadlines(webScraper, e1.get())
+        avgScore = calcAvgSentScore(sentCalculator, headlines)
+
+        avgScore1 = str(avgScore)
+        e11 = str(e1.get())
+
+        updateDB(avgScore1, e11)
+
+        messagebox.showinfo("Result",
+                            " The first 5 headlines are: " + "\n" + printHeadlines(headlines)
+                            + "\n\n" + "Average Score of all Headlines Analyzed is: " + str(avgScore)
+                            + "\n\n" + requestPrediction(sentPredictor, avgScore))
+
+    else:
+        messagebox.showinfo("Result", "Stock name is not valid")
 
 
     #print sentCalculator.calculate("Microsoft's stock riding 7-day win streak toward another record close")
@@ -111,11 +118,20 @@ def updateDB(sentiment, stockname):
         #print(x)
 
 
+def search_stock_symbol(stock_symbol):
+    # connect to database
+    cnx = ms.connect(user='root', password='mypassword', host='mydb.cwtgu3tqnwx8.us-east-2.rds.amazonaws.com',
+                     database='mydb')
+    my_cursor = cnx.cursor()
+    query = "SELECT stock_code FROM stock"
+    my_cursor.execute(query)
+    result = my_cursor.fetchall()
 
+    for x in result:
+        if x[0] == stock_symbol:
+            return 1
+    return 0
 ##########################################################
-
-
-
 
 
 #######Create a calculate sentiment button#######
