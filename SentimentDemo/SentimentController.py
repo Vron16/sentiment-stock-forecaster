@@ -13,7 +13,7 @@ top.wm_title("Sentiment Analyzer")
 top.geometry("1400x800")
 top.configure(background='grey')
 
-#######Importing the picture to the GUI#######
+#######Import the picture to the GUI#######
 path = "imagee.jpg"
 path1 = Image.open(path)
 resized = path1.resize((1400, 500), Image.ANTIALIAS)
@@ -27,7 +27,7 @@ label1 = Label(top, image=image1, textvariable=labelText,
                justify=LEFT, height=500, fg="red", text="Enter Stock").place(x=0, y=0)
 
 
-#######Creating the label on the GUI#######
+#######Create the Enter Stock label on the GUI#######
 Label(top, text="Enter Stock").place(x=600, y=553)
 e1 = Entry(top)
 e1.place(x=680,  y=550)
@@ -100,7 +100,7 @@ def updateDB(sentiment):
 
 ##########################################################
 
-#######Creating a calculate sentiment button#######
+#######Create a calculate sentiment button#######
 B1 = Button(top, text="Calculate Sentiment", bg="green", fg="black", command=buttonFunc).place(x=670, y=600)
 
 #######Run the GUI#######
