@@ -13,7 +13,7 @@ top.wm_title("Sentiment Analyzer")
 top.geometry("1400x800")
 top.configure(background='grey')
 
-######big label
+#######Importing the picture to the GUI#######
 path = "imagee.jpg"
 path1 = Image.open(path)
 resized = path1.resize((1400, 500), Image.ANTIALIAS)
@@ -27,7 +27,7 @@ label1 = Label(top, image=image1, textvariable=labelText,
                justify=LEFT, height=500, fg="red", text="Enter Stock").place(x=0, y=0)
 
 
-#######small label
+#######Creating the label on the GUI#######
 Label(top, text="Enter Stock").place(x=600, y=553)
 e1 = Entry(top)
 e1.place(x=680,  y=550)
@@ -35,26 +35,19 @@ e1.place(x=680,  y=550)
 
 ##########################################################
 def main():
-    #messagebox.showinfo("Result", "Hello World")
-
     sentCalculator = SentimentCalculator()
     webScraper = Webscraper()
     sentPredictor = SentimentPredictor()
-
     headlines = requestHeadlines(webScraper, e1.get())
     avgScore = calcAvgSentScore(sentCalculator, headlines)
 
 
-
-    #print('Average Score of all Headlines Analyzed is: ' + str(avgScore))
-    #print(requestPrediction(sentPredictor, avgScore))
 
     messagebox.showinfo("Result",
                         " The first 5 headlines are: " + "\n" + printHeadlines(headlines)
                         + "\n\n" + "Average Score of all Headlines Analyzed is: " + str(avgScore)
                         + "\n\n" + requestPrediction(sentPredictor, avgScore))
 
-    #messagebox.showinfo("Say Hello", 'Average Score of all Headlines Analyzed is: ' + str(avgScore) + '\n' + '\n' + requestPrediction(sentPredictor, avgScore) + '\n')
     #updateDB(avgScore)
     #print sentCalculator.calculate("Microsoft's stock riding 7-day win streak toward another record close")
     #print sentCalculator.calculate("Alphabet (GOOGL) Dips More Than Broader Markets: What You Should Know")
@@ -62,14 +55,17 @@ def main():
 def buttonFunc():
     main()
 
+
 def requestHeadlines(webScraper, ticker):
     return webScraper.getHeadlines(ticker)
+
 
 def printHeadlines(headlines):
     h = " "
     for i in range(5):
         h = h + "\n" + "- “" + headlines[i] + '”'
     return h
+
 
 def calcAvgSentScore(sentimentCalculator, headlines):
     totalScore = 0
@@ -102,15 +98,10 @@ def updateDB(sentiment):
     for x in result:
         print(x)
 
-
-#if __name__ == '__main__':
- #   main()
-
-
 ##########################################################
 
-
-#e1.get() -- gets the stock name
-
+#######Creating a calculate sentiment button#######
 B1 = Button(top, text="Calculate Sentiment", bg="green", fg="black", command=buttonFunc).place(x=670, y=600)
+
+#######Run the GUI#######
 top.mainloop()
