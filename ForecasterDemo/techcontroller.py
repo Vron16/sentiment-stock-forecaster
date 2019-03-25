@@ -45,6 +45,7 @@ def getPrediction(stock_name):
     stoch_os = mm.getStochasticOscillator(stock_data)  # array
     asi = mm.getASI(stock_data)  # array
     arima_prediction = mm.getARIMA(stock_data[4])  # double
+    currentprice = stock_data[4][0]
 
     prediction = mm.aggregatePrediction(roc, stoch_os, asi, arima_prediction)
     #messagebox.showinfo(stock_name, stock_name + "\n\nRate of Change: " + str(round(roc[0],5)) + "%\n" +
@@ -56,6 +57,7 @@ def getPrediction(stock_name):
     ret.append(str(round(roc[0],5)))
     ret.append(str(round(stoch_os[0],5)))
     ret.append(str(round(asi[0],5)))
+    ret.append(str(round(currentprice)))
     ret.append(str(round(arima_prediction,5)))
     ret.append(str(round(prediction,5)))
     return ret
@@ -99,6 +101,7 @@ stockname = StringVar()
 roc = StringVar()
 stoch_os = StringVar()
 asi = StringVar()
+cur = StringVar()
 arima = StringVar()
 pred = StringVar()
 color = StringVar()
@@ -106,8 +109,9 @@ Label(top, textvariable=stockname, font="Helvetica 16 bold").place(x=600, y=550)
 Label(top, textvariable=roc, font="Helvetica 14").place(x=600, y=575)
 Label(top, textvariable=stoch_os, font="Helvetica 14").place(x=600, y=600)
 Label(top, textvariable=asi, font="Helvetica 14").place(x=600, y=625)
-Label(top, textvariable=arima, font="Helvetica 14").place(x=600, y=650)
-Label(top, textvariable=pred, font="Helvetica 14").place(x=600, y=675)
+Label(top, textvariable=cur, font="Helvetica 14").place(x=600, y=650)
+Label(top, textvariable=arima, font="Helvetica 14").place(x=600, y=675)
+Label(top, textvariable=pred, font="Helvetica 14").place(x=600, y=700)
 
 
 def buttonFunc():
@@ -134,8 +138,18 @@ def buttonFunc():
     else:
         Label(top, textvariable=asi, font="Helvetica 14", fg="green").place(x=600, y=625)
 
-    arima.set("ARIMA: $" + list[4])
-    pred.set("Overall Prediction: $" + list[5])
+    cur.set("Current Price: $" + list[4])
+    arima.set("ARIMA Prediction: $" + list[5])
+    if (float(list[4]) > float(list[5])):
+        Label(top, textvariable=arima, font="Helvetica 14", fg="red").place(x=600, y=675)
+    else:
+        Label(top, textvariable=arima, font="Helvetica 14", fg="green").place(x=600, y=675)
+
+    pred.set("Overall Prediction: $" + list[6])
+    if (float(list[4]) > float(list[6])):
+        Label(top, textvariable=pred, font="Helvetica 14", fg="red").place(x=600, y=700)
+    else:
+        Label(top, textvariable=pred, font="Helvetica 14", fg="green").place(x=600, y=700)
 
 #button
 B1 = Button(top, text="Get Prediction", bg="green", fg="black", command=buttonFunc).place(x=650, y=510)
