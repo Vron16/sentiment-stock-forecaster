@@ -1,36 +1,41 @@
 from statsmodels.tsa.arima_model import ARIMA
 import datetime
 
-#----------------- Rate of Change ------------------#
+# ----------------- Rate of Change ------------------#
 
-numDays = 1
+numDays = 5
+
 
 def calculateROC(closing, now, nAgo):
-    diff = closing[now]-closing[nAgo]
-    roc = (diff/closing[nAgo])*100
+    diff = closing[now] - closing[nAgo]
+    roc = (diff / closing[nAgo]) * 100
     return roc
+
 
 def nDayRateOfChange(now, closing):
     rocs = []
     i = 0
     while i < len(closing) - numDays:
-        answer = calculateROC(closing, i, i+numDays)
+        answer = calculateROC(closing, i, i + numDays)
         rocs.append(answer)
         i += numDays
     return rocs
+
 
 def printRocs(rocs):
     print("ROCS:")
     for r in rocs:
         print(r)
 
-#TODO: get closing by parsing through 5 min intervals list
+
+# TODO: get closing by parsing through 5 min intervals list
 def getClosingPrices(times, list):
     prices = []
     for i in range(len(times)):
         if times[i].hour == 16:
             prices.append(list[i])
     return prices
+
 
 def getRateOfChange(stockData):
     times = stockData[0]
@@ -41,9 +46,7 @@ def getRateOfChange(stockData):
     return rocs
 
 
-#----------------- Stochastic Oscillator ------------------#
-
-numDays = 1
+# ----------------- Stochastic Oscillator ------------------#
 
 def calculateSO(closing, high, low, cur, now, nAgo):
     highPrice = findHighest(high, now, nAgo)
@@ -51,7 +54,7 @@ def calculateSO(closing, high, low, cur, now, nAgo):
 
     numer = cur - lowPrice
     denom = highPrice - lowPrice
-    return (numer/denom) * 100
+    return (numer / denom) * 100
 
 
 def findHighest(high, now, nAgo):
@@ -76,13 +79,13 @@ def findLowest(low, now, nAgo):
     return lowPrice
 
 
-def nDayOscillation(num,closing,high,low,cur):
+def nDayOscillation(num, closing, high, low, cur):
     sos = []
     i = 0
-    while i < len(closing):
-        answer = calculateSO(closing, high, low, cur, i, i+num)
+    while i < len(closing) - num:
+        answer = calculateSO(closing, high, low, cur, i, i + num)
         sos.append(answer)
-        i+=num
+        i += num
     return sos
 
 
@@ -91,6 +94,7 @@ def printSO(so):
     for s in so:
         print(s)
 
+
 def getClosingPrices(times, list):
     prices = []
     for i in range(len(times)):
@@ -98,7 +102,8 @@ def getClosingPrices(times, list):
             prices.append(list[i])
     return prices
 
-#TODO: get high by parsing through 5 min intervals list
+
+# TODO: get high by parsing through 5 min intervals list
 def getHighPrices(times, list):
     prices = []
     highest = 0
@@ -110,7 +115,8 @@ def getHighPrices(times, list):
             highest = 0
     return prices
 
-#TODO: get low by parsing through 5 min intervals list
+
+# TODO: get low by parsing through 5 min intervals list
 def getLowPrices(times, list):
     prices = []
     lowest = float("inf")
@@ -122,9 +128,11 @@ def getLowPrices(times, list):
             lowest = float("inf")
     return prices
 
+
 def getCurPrice(list):
-    #newest price at the beginning of list
+    # newest price at the beginning of list
     return list[0]
+
 
 def getStochasticOscillator(stockData):
     times = stockData[0]
@@ -132,7 +140,7 @@ def getStochasticOscillator(stockData):
     lowFiveMinList = stockData[2]
     fiveMinList = stockData[4]
 
-    #prices list and current price
+    # prices list and current price
     closing = getClosingPrices(times, fiveMinList)
     high = getHighPrices(times, highFiveMinList)
     low = getLowPrices(times, lowFiveMinList)
@@ -141,108 +149,36 @@ def getStochasticOscillator(stockData):
     so = nDayOscillation(numDays, closing, high, low, cur)
     return so
 
-#-------------------ASI--------------------#
 
-def getSwing(stock_Data, priceSamplesPerDay, priceSamplesToday):
-    stock_Data.reverse()
-    length = len(stock_Data)
-    t = 100 #t has to be user defined, not sure what a good number is
-    C = stock_Data[length-1] #today's closing price
-    Cy = stock_Data[length-1-priceSamplesToday] #yesterdays closing price
-    O = stock_Data[length - priceSamplesToday] #today's opening price
-    Oy = stock_Data[length - priceSamplesToday - priceSamplesPerDay] #yesterdays opening price
-
-    yesterdaysPrices = [] #make a list of yesterdays prices
-    i = 0 #counter
-    Hy = 0 #yesterdays high price
-    Ly = Cy #yesterdays low price
-    while i < priceSamplesPerDay:
-        yesterdaysPrices.append(stock_Data[length - priceSamplesToday - priceSamplesPerDay + i])
-        if yesterdaysPrices[i] > Hy:
-            Hy = yesterdaysPrices[i]
-        if yesterdaysPrices[i] < Ly:
-            Ly = yesterdaysPrices[i]
-        i += 1
-
-    todaysPrices = []
-    i = 0
-    H = 0
-    L = C
-    while i < priceSamplesToday:
-        todaysPrices.append(stock_Data[length - priceSamplesToday + i])
-        if todaysPrices[i] > H:
-            H = todaysPrices[i]
-        if todaysPrices[i] < L:
-            L = todaysPrices[i]
-        i += 1
-
-    K = max(H-Cy,Cy-L)
-    TR = max(H-Cy, L-Cy, H-L)
-
-    if TR == H - Cy:
-        R = (H-C) - .5*(L-C) - .25*(Cy-Oy)
-    elif TR == L - Cy:
-        R = L - Cy - .5*(H - O) + .25*(Cy-Oy)
-    else:
-        R = H - L + .25*(Cy-Oy)
-
-    swing = 50 * (Cy - C + .5*(Cy - Oy) + .25*(C - O)/R) * K / t
-
-    return swing
-
-#To get ASI you get the swing for every day in the dataset
-
-def getASI(stock_Data):
-
-    times = stock_Data[0]
-    high_prices = stock_Data[1]
-
-    todaySamples = 0
-    yesterdaySamples = 0
-
-    ASI = []
-    for k in range(len(times)):
-        todaySamples += 1
-        if times[k].date != times[k+1]:
-            if yesterdaySamples != 0:
-                ASI.append(getSwing(high_prices[k-todaySamples-yesterdaySamples:k-1],yesterdaySamples,todaySamples))
-            yesterdaySamples = todaySamples
-            todaySamples = 0
-
-    ASI.reverse()
-
-    return ASI
-
-
-#----------------- ARIMA ------------------#
+# ----------------- ARIMA ------------------#
 
 
 def getARIMA(stock_data):
-    
-    stock_data.reverse();
+    stock_data.reverse()
     fc = -1
-    if(len(stock_data) < 1):
+    if (len(stock_data) < 1):
         return fc
-    
+
     p = 5
-    while(1):
+    while (1):
         try:
-            if(p == 0):
+            if (p == 0):
                 return -2
-            model = ARIMA(stock_data, order=(p,1,0))
+            model = ARIMA(stock_data, order=(p, 1, 0))
             model_fit = model.fit(disp=0)
             fc = model_fit.forecast()[0][0]
             return fc
         except:
-            p-=1
-        
+            p -= 1
+
     return fc
 
+
 def aggregatePrediction(roc, stoch_os, asi, arima_prediction):
-    
+
     print("Rate of change: ", roc[0])
     print("Stochastic Oscillator: ", stoch_os[0])
     print("Accumulative Swing Index: ", asi[0])
     print("ARIMA Prediction: ", arima_prediction)
-    
+
     return arima_prediction
