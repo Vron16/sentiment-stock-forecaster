@@ -8,7 +8,7 @@ def main():
     webScraper = Webscraper()
     sentPredictor = SentimentPredictor()
 
-    headlines = requestHeadlines(webScraper, "AAPL")
+    headlines = requestHeadlines(webScraper, "asdkfasjdkf")
     avgScore = calcAvgSentScore(sentCalculator, headlines)
     print('Average Score of all Headlines Analyzed is: ' + str(avgScore))
     print(requestPrediction(sentPredictor, avgScore))
