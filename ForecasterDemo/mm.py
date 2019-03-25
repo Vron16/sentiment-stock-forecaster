@@ -224,9 +224,13 @@ def getASI(stock_Data):
 
 
 def getARIMA(stock_data):
-    stock_data.reverse()
+    #stock_data.reverse()
+    data = []
+    for i in stock_data:
+        data = [i] + data
+
     fc = -1
-    if (len(stock_data) < 1):
+    if (len(data) < 1):
         return fc
 
     p = 5
@@ -234,7 +238,7 @@ def getARIMA(stock_data):
         try:
             if (p == 0):
                 return -2
-            model = ARIMA(stock_data, order=(p, 1, 0))
+            model = ARIMA(data, order=(p, 1, 0))
             model_fit = model.fit(disp=0)
             fc = model_fit.forecast()[0][0]
             return fc
