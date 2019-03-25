@@ -103,7 +103,6 @@ def getClosingPrices(times, list):
     return prices
 
 
-# TODO: get high by parsing through 5 min intervals list
 def getHighPrices(times, list):
     prices = []
     highest = 0
@@ -116,7 +115,6 @@ def getHighPrices(times, list):
     return prices
 
 
-# TODO: get low by parsing through 5 min intervals list
 def getLowPrices(times, list):
     prices = []
     lowest = float("inf")
@@ -149,7 +147,9 @@ def getStochasticOscillator(stockData):
     so = nDayOscillation(numDays, closing, high, low, cur)
     return so
 
-# -------------------ASI--------------------#
+
+
+# -------------------ASI--------------------
 
 def getSwing(stock_Data, priceSamplesPerDay, priceSamplesToday):
     length = len(stock_Data)
@@ -224,9 +224,13 @@ def getASI(stock_Data):
 
 
 def getARIMA(stock_data):
-    stock_data.reverse()
+    #stock_data.reverse()
+    data = []
+    for i in stock_data:
+        data = [i] + data
+
     fc = -1
-    if (len(stock_data) < 1):
+    if (len(data) < 1):
         return fc
 
     p = 5
@@ -234,7 +238,7 @@ def getARIMA(stock_data):
         try:
             if (p == 0):
                 return -2
-            model = ARIMA(stock_data, order=(p, 1, 0))
+            model = ARIMA(data, order=(p, 1, 0))
             model_fit = model.fit(disp=0)
             fc = model_fit.forecast()[0][0]
             return fc
