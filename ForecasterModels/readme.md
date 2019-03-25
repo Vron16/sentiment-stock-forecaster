@@ -4,11 +4,11 @@ Technical Stock Forecaster Models
 
 Complete:
 ROC,
-Stochastic Oscillator
-
-Incomplete:
+Stochastic Oscillator,
 ARIMA,
 Accumulative Swing Index,
+
+Incomplete:
 Least Squares Approximation,
 Fourier Series of order 2-4,
 AveragerAI
