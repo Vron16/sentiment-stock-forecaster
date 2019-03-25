@@ -43,8 +43,7 @@ def getPrediction(stock_name):
 
     roc = mm.getRateOfChange(stock_data)  # array
     stoch_os = mm.getStochasticOscillator(stock_data)  # array
-    #asi = mm.getASI(stock_data)  # array
-    asi = [0,1]
+    asi = mm.getASI(stock_data)  # array
     arima_prediction = mm.getARIMA(stock_data[4])  # double
 
     prediction = mm.aggregatePrediction(roc, stoch_os, asi, arima_prediction)
@@ -56,7 +55,7 @@ def getPrediction(stock_name):
     ret.append(stock_name)
     ret.append(str(round(roc[0],5)))
     ret.append(str(round(stoch_os[0],5)))
-    ret.append(str(asi[0]))
+    ret.append(str(round(asi[0],5)))
     ret.append(str(round(arima_prediction,5)))
     ret.append(str(round(prediction,5)))
     return ret
@@ -92,7 +91,7 @@ label1 = Label(top, image=image1, textvariable=labelText,
                justify=LEFT, height=450, fg="red", text="Enter Stock").place(x=0, y=0)
 
 #labels
-Label(top, text="Enter Stock").place(x=600, y=475)
+Label(top, text="Enter Stock", font="Helvetica 14", ).place(x=600, y=475)
 e1 = Entry(top)
 e1.place(x=680,  y=475)
 
@@ -102,12 +101,13 @@ stoch_os = StringVar()
 asi = StringVar()
 arima = StringVar()
 pred = StringVar()
-Label(top ,textvariable=stockname).place(x=600, y=550)
-Label(top ,textvariable=roc).place(x=600, y=575)
-Label(top ,textvariable=stoch_os).place(x=600, y=600)
-Label(top ,textvariable=asi).place(x=600, y=625)
-Label(top ,textvariable=arima).place(x=600, y=650)
-Label(top ,textvariable=pred).place(x=600, y=675)
+color = StringVar()
+Label(top, textvariable=stockname, font="Helvetica 16 bold").place(x=600, y=550)
+Label(top, textvariable=roc, font="Helvetica 14").place(x=600, y=575)
+Label(top, textvariable=stoch_os, font="Helvetica 14").place(x=600, y=600)
+Label(top, textvariable=asi, font="Helvetica 14").place(x=600, y=625)
+Label(top, textvariable=arima, font="Helvetica 14").place(x=600, y=650)
+Label(top, textvariable=pred, font="Helvetica 14").place(x=600, y=675)
 
 
 def buttonFunc():
@@ -116,11 +116,27 @@ def buttonFunc():
         return
     stockname.set(list[0])
     roc.set("Rate of Change: " + list[1] + "%")
+    if (float(list[1]) < 0):
+        Label(top, textvariable=roc, font="Helvetica 14", fg="red").place(x=600, y=575)
+    else:
+        Label(top, textvariable=roc, font="Helvetica 14", fg="green").place(x=600, y=575)
+
     stoch_os.set("Stochastic Oscillator: " + list[2] + "%")
+    if (float(list[2]) > 50):
+        Label(top, textvariable=stoch_os, font="Helvetica 14", fg="red").place(x=600, y=600)
+    else:
+        Label(top, textvariable=stoch_os, font="Helvetica 14", fg="green").place(x=600, y=600)
+
+
     asi.set("Accumulated Swing Index: " + list[3])
+    if (float(list[3]) < 0):
+        Label(top, textvariable=asi, font="Helvetica 14", fg="red").place(x=600, y=625)
+    else:
+        Label(top, textvariable=asi, font="Helvetica 14", fg="green").place(x=600, y=625)
+
     arima.set("ARIMA: $" + list[4])
     pred.set("Overall Prediction: $" + list[5])
 
 #button
-B1 = Button(top, text="Get Prediction", bg="green", fg="black", command=buttonFunc).place(x=650, y=525)
+B1 = Button(top, text="Get Prediction", bg="green", fg="black", command=buttonFunc).place(x=650, y=510)
 top.mainloop()
