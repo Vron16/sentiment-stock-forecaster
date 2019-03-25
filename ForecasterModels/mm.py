@@ -149,6 +149,76 @@ def getStochasticOscillator(stockData):
     so = nDayOscillation(numDays, closing, high, low, cur)
     return so
 
+# -------------------ASI--------------------#
+
+def getSwing(stock_Data, priceSamplesPerDay, priceSamplesToday):
+    length = len(stock_Data)
+    t = 100  # t has to be user defined, not sure what a good number is
+    O = stock_Data[length - 1]  # today's closing price
+    Oy = stock_Data[length - 1 - priceSamplesToday]  # yesterdays closing price
+    C = stock_Data[length - priceSamplesToday]  # today's opening price
+    Cy = stock_Data[length - priceSamplesToday - priceSamplesPerDay]  # yesterdays opening price
+
+    yesterdaysPrices = []  # make a list of yesterdays prices
+    i = 0  # counter
+    Hy = 0  # yesterdays high price
+    Ly = Cy  # yesterdays low price
+    while i < priceSamplesPerDay:
+        yesterdaysPrices.append(stock_Data[length - priceSamplesToday - priceSamplesPerDay + i])
+        if yesterdaysPrices[i] > Hy:
+            Hy = yesterdaysPrices[i]
+        if yesterdaysPrices[i] < Ly:
+            Ly = yesterdaysPrices[i]
+        i += 1
+
+    todaysPrices = []
+    i = 0
+    H = 0
+    L = C
+    while i < priceSamplesToday:
+        todaysPrices.append(stock_Data[length - priceSamplesToday + i])
+        if todaysPrices[i] > H:
+            H = todaysPrices[i]
+        if todaysPrices[i] < L:
+            L = todaysPrices[i]
+        i += 1
+
+    K = max(H - Cy, Cy - L)
+    TR = max(H - Cy, L - Cy, H - L)
+
+    if TR == H - Cy:
+        R = (H - C) - .5 * (L - C) - .25 * (Cy - Oy)
+    elif TR == L - Cy:
+        R = L - Cy - .5 * (H - O) + .25 * (Cy - Oy)
+    else:
+        R = H - L + .25 * (Cy - Oy)
+
+    swing = 50 * (Cy - C + .5 * (Cy - Oy) + .25 * (C - O) / R) * K / t
+
+    return swing
+
+
+# To get ASI you get the swing for every day in the dataset
+
+def getASI(stock_Data):
+    times = stock_Data[0]
+    high_prices = stock_Data[1]
+
+    todaySamples = 0
+    yesterdaySamples = 0
+
+    ASI = []
+    for k in range(len(times)-1):
+        todaySamples += 1
+        if times[k + 1].hour == 16:
+            if yesterdaySamples != 0 and todaySamples != 0:
+                ASI.append(getSwing(high_prices[0 : k], yesterdaySamples, todaySamples))
+            yesterdaySamples = todaySamples
+            todaySamples = 0
+
+    ASI.reverse()
+
+    return ASI
 
 # ----------------- ARIMA ------------------#
 
