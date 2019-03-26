@@ -69,6 +69,15 @@ class PageOne(tk.Frame):
         def showbal():
             messagebox.showinfo("Balance", AT.print_balance())
 
+        def withdraw():
+            bal = entry_1.get()
+            if float(bal) > AT.balance:
+                messagebox.showinfo("Warning","Attempted to withdraw more than available Balance, please try again")
+            else:
+                AT.balance -= float(bal)
+                messagebox.showinfo("Success", "withdrew from AutoTrade Balance")
+
+
         tk.Frame.__init__(self, parent)
         self.controller = controller
         self.iconPath = r"kash.PNG"
@@ -84,12 +93,20 @@ class PageOne(tk.Frame):
         photo = tk.PhotoImage(file=r"kash.PNG")
         Photo_label = tk.Label(self, image=photo)
         Photo_label.grid(sticky="nsew")
+        bal_label = Label(self, text="Withdraw Balance:")
+        bal_label.grid()
+        entry_1 = Entry(self)
+        entry_1.grid()
+        withdrawbutton = tk.Button(self, text="Withdraw",
+                              command=lambda: withdraw())
+
         balbutton = tk.Button(self, text="Show Balance",
                               command=lambda: showbal())
 
         button = tk.Button(self, text="Go to the start page",
                            command=lambda: controller.show_frame("StartPage"))
         # button.pack()
+        withdrawbutton.grid()
         balbutton.grid()
         button.grid()
 
@@ -129,11 +146,12 @@ class PageTwo(tk.Frame):
             # stock_label.grid_forget()
             # balance_label.grid_forget()
             string_to_display3 = "Autotrader has run\n"
+
+            string_to_display5 = stock + "'s price is $" + str(stockprice) + "\n"
             string_to_display4 = "New Balance is $" + str(AT.balance)
             run_label = Label(self)
-            run_label["text"] = string_to_display3 + string_to_display4
+            run_label["text"] = string_to_display3 + string_to_display5 + string_to_display4
             run_label.grid()
-
         def get_stock():
             stock = entry_2.get()
             string_to_display = "AutoTrading for... " + stock

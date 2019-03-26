@@ -1,3 +1,7 @@
+### PLEASE MAKE SURE YOU HAVE THE FOLlOWING PACKAGES:
+### - STATSMODELS
+### - SCIPY
+### DATELINE SHOULD BE A DEFAULT PACKAGE
 from statsmodels.tsa.arima_model import ARIMA
 import datetime
 
@@ -7,12 +11,14 @@ numDays = 5
 
 
 def calculateROC(closing, now, nAgo):
+    # calculate the ROC between two times (Formulas in report)
     diff = closing[now] - closing[nAgo]
     roc = (diff / closing[nAgo]) * 100
     return roc
 
 
 def nDayRateOfChange(now, closing):
+    # get all of the ROCs for all numDays periods into a list, return it
     rocs = []
     i = 0
     while i < len(closing) - numDays:
@@ -23,6 +29,7 @@ def nDayRateOfChange(now, closing):
 
 
 def printRocs(rocs):
+    # helper function for unit tests
     print("ROCS:")
     for r in rocs:
         print(r)
@@ -30,6 +37,8 @@ def printRocs(rocs):
 
 # TODO: get closing by parsing through 5 min intervals list
 def getClosingPrices(times, list):
+    # get the closing prices for all days
+    # because the stock market closes at 4pm, check if times[i].hour == 16
     prices = []
     for i in range(len(times)):
         if times[i].hour == 16:
@@ -38,9 +47,11 @@ def getClosingPrices(times, list):
 
 
 def getRateOfChange(stockData):
+    # store the time stamps and the closing prices
     times = stockData[0]
     fiveMinList = stockData[4]
 
+    # get the rocs for a given period
     closing = getClosingPrices(times, fiveMinList)
     rocs = nDayRateOfChange(0, closing)
     return rocs
@@ -49,6 +60,7 @@ def getRateOfChange(stockData):
 # ----------------- Stochastic Oscillator ------------------#
 
 def calculateSO(closing, high, low, cur, now, nAgo):
+    # calculate the stochastic oscillator for a given period (Formulas in report)
     highPrice = findHighest(high, now, nAgo)
     lowPrice = findLowest(low, now, nAgo)
 
@@ -58,6 +70,7 @@ def calculateSO(closing, high, low, cur, now, nAgo):
 
 
 def findHighest(high, now, nAgo):
+    # find the highest price in a list
     highPrice = 0
     i = nAgo
     while i >= now:
@@ -69,6 +82,7 @@ def findHighest(high, now, nAgo):
 
 
 def findLowest(low, now, nAgo):
+    # find the lowest price in a list
     lowPrice = float("inf")
     i = nAgo
     while i >= now:
@@ -80,6 +94,7 @@ def findLowest(low, now, nAgo):
 
 
 def nDayOscillation(num, closing, high, low, cur):
+    # for every numDay period, get the stochastic oscillator, store in a list
     sos = []
     i = 0
     while i < len(closing) - num:
@@ -90,12 +105,14 @@ def nDayOscillation(num, closing, high, low, cur):
 
 
 def printSO(so):
+    # helper function for unit tests
     print("SO:")
     for s in so:
         print(s)
 
 
 def getClosingPrices(times, list):
+    # get the closing price for all days
     prices = []
     for i in range(len(times)):
         if times[i].hour == 16:
@@ -104,6 +121,7 @@ def getClosingPrices(times, list):
 
 
 def getHighPrices(times, list):
+    # get the highest price for all days
     prices = []
     highest = 0
     for i in range(len(times)):
@@ -116,6 +134,7 @@ def getHighPrices(times, list):
 
 
 def getLowPrices(times, list):
+    # get the lowest price for all days
     prices = []
     lowest = float("inf")
     for i in range(len(times)):
@@ -133,6 +152,7 @@ def getCurPrice(list):
 
 
 def getStochasticOscillator(stockData):
+    # store the time stamps, high prices, low prices, and closing prices for every five minute interval
     times = stockData[0]
     highFiveMinList = stockData[1]
     lowFiveMinList = stockData[2]
@@ -144,6 +164,7 @@ def getStochasticOscillator(stockData):
     low = getLowPrices(times, lowFiveMinList)
     cur = getCurPrice(fiveMinList)
 
+    # get list of stock oscillations for all numDay peridss
     so = nDayOscillation(numDays, closing, high, low, cur)
     return so
 
@@ -171,6 +192,7 @@ def getSwing(stock_Data, priceSamplesPerDay, priceSamplesToday):
             Ly = yesterdaysPrices[i]
         i += 1
 
+    # Perform the ASI calculations (Formulas in report)
     todaysPrices = []
     i = 0
     H = 0
@@ -201,6 +223,7 @@ def getSwing(stock_Data, priceSamplesPerDay, priceSamplesToday):
 # To get ASI you get the swing for every day in the dataset
 
 def getASI(stock_Data):
+    # store the time stamps and the high prices
     times = stock_Data[0]
     high_prices = stock_Data[1]
 
@@ -208,6 +231,9 @@ def getASI(stock_Data):
     yesterdaySamples = 0
 
     ASI = []
+    
+    # Find all of the prices for a single day, call getSwing() to get Swing Index for that day
+    # Append the swing for each day into ASI
     for k in range(len(times)-1):
         todaySamples += 1
         if times[k + 1].hour == 16:
@@ -224,32 +250,35 @@ def getASI(stock_Data):
 
 
 def getARIMA(stock_data):
-    #stock_data.reverse()
+    # Because the stock prices are reveresed, we push each price to the front of data
     data = []
     for i in stock_data:
         data = [i] + data
-
+    
+    # fc will hold the forecast made by ARIMA
     fc = -1
-    if (len(data) < 1):
+    if (len(data) < 1): # if the list is empty, return -1
         return fc
 
+    # p is a parameter for the ARIMA model, and can act as a looping iterator
     p = 5
     while (1):
-        try:
-            if (p == 0):
+        try: # we try to fit the data to the ARIMA model, with p initially at 5
+            if (p == 0): # base case condition: if we looped five times already, 
+                         # there wasn't enough stock data to make a meaningful prediction, return -2
                 return -2
             model = ARIMA(data, order=(p, 1, 0))
             model_fit = model.fit(disp=0)
+            # if the model fits, we can ask it to make a prediction, and return it
             fc = model_fit.forecast()[0][0]
             return fc
-        except:
+        except: # the model could not fit, so we try again by decrementing p
             p -= 1
 
     return fc
 
-
 def aggregatePrediction(roc, stoch_os, asi, arima_prediction):
-
+    # This is our averager. For the purpose of the demo here we printed all of our results and returned the ARIMA prediction
     print("Rate of change: ", roc[0])
     print("Stochastic Oscillator: ", stoch_os[0])
     print("Accumulative Swing Index: ", asi[0])
