@@ -8,7 +8,7 @@ def main():
     webScraper = Webscraper()
     sentPredictor = SentimentPredictor()
 
-    headlines = requestHeadlines(webScraper, "asdkfasjdkf")
+    headlines = requestHeadlines(webScraper, "AAPL")
     avgScore = calcAvgSentScore(sentCalculator, headlines)
     print('Average Score of all Headlines Analyzed is: ' + str(avgScore))
     print(requestPrediction(sentPredictor, avgScore))
@@ -35,6 +35,20 @@ def calcAvgSentScore(sentimentCalculator, headlines):
 
 def requestPrediction(sentimentPredictor, averageSent):
     return sentimentPredictor.predict(averageSent)
+
+def search_stock_symbol(stock_symbol):
+    # connect to database
+    cnx = ms.connect(user='root', password='mypassword', host='mydb.cwtgu3tqnwx8.us-east-2.rds.amazonaws.com',
+                     database='mydb')
+    my_cursor = cnx.cursor()
+    query = "SELECT stock_code FROM stock"
+    my_cursor.execute(query)
+    result = my_cursor.fetchall()
+
+    for x in result:
+        if x[0] == stock_symbol:
+            return 1
+    return 0
 
 def updateDB(sentiment):
     cnx = ms.connect(user='root', password='mypassword',

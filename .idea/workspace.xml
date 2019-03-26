@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="64139794-12b4-4ae9-9714-aec9c8cd1033" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/Sentiment Analyzer/unitTests.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Sentiment Analyzer/SentimentController.py" beforeDir="false" afterPath="$PROJECT_DIR$/Sentiment Analyzer/SentimentController.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Sentiment Analyzer/SentimentPredictor.py" beforeDir="false" afterPath="$PROJECT_DIR$/Sentiment Analyzer/SentimentPredictor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SentimentDemo/SentimentController.py" beforeDir="false" afterPath="$PROJECT_DIR$/SentimentDemo/SentimentController.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SentimentDemo/SentimentPredictor.py" beforeDir="false" afterPath="$PROJECT_DIR$/SentimentDemo/SentimentPredictor.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,40 +18,60 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Sentiment Analyzer/Webscraper.py">
+        <entry file="file://$PROJECT_DIR$/Sentiment Analyzer/SentimentController.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="18" column="10" selection-start-line="18" selection-start-column="10" selection-end-line="18" selection-end-column="10" />
+            <state relative-caret-position="705">
+              <caret line="50" column="12" selection-start-line="50" selection-start-column="12" selection-end-line="50" selection-end-column="12" />
               <folding>
-                <element signature="e#0#11#0" expanded="true" />
+                <element signature="e#0#51#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SentimentDemo/SentimentController.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="12" column="24" lean-forward="true" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="24" />
+              <folding>
+                <element signature="e#0#51#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Sentiment Analyzer/SentimentController.py">
+        <entry file="file://$PROJECT_DIR$/Sentiment Analyzer/unitTests.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="3" column="26" lean-forward="true" selection-start-line="3" selection-start-column="26" selection-end-line="3" selection-end-column="26" />
+            <state relative-caret-position="180">
+              <caret line="12" column="47" selection-start-line="12" selection-start-column="47" selection-end-line="12" selection-end-column="47" />
+              <folding>
+                <element signature="e#0#51#0" expanded="true" />
+              </folding>
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/SentimentDemo/FinanceLexicon.txt">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Sentiment Analyzer/SentimentPredictor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="16" column="170" selection-start-line="16" selection-start-column="170" selection-end-line="16" selection-end-column="170" />
+            <state relative-caret-position="105">
+              <caret line="7" column="45" selection-start-line="7" selection-start-column="45" selection-end-line="7" selection-end-column="45" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Sentiment Analyzer/googletest.json">
+        <entry file="file://$PROJECT_DIR$/SentimentDemo/SentimentPredictor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="2687" selection-start-column="2687" selection-end-column="2687" />
+            <state relative-caret-position="135">
+              <caret line="9" column="47" selection-start-line="9" selection-start-column="47" selection-end-line="9" selection-end-column="47" />
             </state>
           </provider>
         </entry>
@@ -83,15 +107,18 @@
         <option value="$PROJECT_DIR$/updateLexicon.py" />
         <option value="$PROJECT_DIR$/Sentiment Analyzer/Webscraper.py" />
         <option value="$PROJECT_DIR$/Sentiment Analyzer/SentimentCalculator.py" />
-        <option value="$PROJECT_DIR$/Sentiment Analyzer/SentimentPredictor.py" />
+        <option value="$PROJECT_DIR$/SentimentDemo/SentimentPredictor.py" />
         <option value="$PROJECT_DIR$/Sentiment Analyzer/SentimentController.py" />
+        <option value="$PROJECT_DIR$/Sentiment Analyzer/SentimentPredictor.py" />
+        <option value="$PROJECT_DIR$/Sentiment Analyzer/unitTests.py" />
+        <option value="$PROJECT_DIR$/SentimentDemo/SentimentController.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="1">
-    <option name="y" value="35" />
+    <option name="y" value="23" />
     <option name="width" value="1440" />
-    <option name="height" value="810" />
+    <option name="height" value="814" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -110,6 +137,11 @@
               <item name="sentiment-stock-forecaster" type="b2602c69:ProjectViewProjectNode" />
               <item name="sentiment-stock-forecaster" type="462c0819:PsiDirectoryNode" />
               <item name="Sentiment Analyzer" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="sentiment-stock-forecaster" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sentiment-stock-forecaster" type="462c0819:PsiDirectoryNode" />
+              <item name="SentimentDemo" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -140,7 +172,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.SentimentController">
+  <component name="RunManager" selected="Python.SentimentController (1)">
     <configuration name="SentimentCalculator" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="sentiment-stock-forecaster" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -154,6 +186,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Sentiment Analyzer/SentimentCalculator.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="SentimentController (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="sentiment-stock-forecaster" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/SentimentDemo" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/SentimentDemo/SentimentController.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -204,7 +257,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="csvParser" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="unitTests" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="sentiment-stock-forecaster" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -212,32 +265,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Sentiment Analyzer" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/csvParser.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="updateLexicon" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="sentiment-stock-forecaster" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/updateLexicon.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Sentiment Analyzer/unitTests.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -247,19 +279,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.csvParser" />
-      <item itemvalue="Python.updateLexicon" />
       <item itemvalue="Python.Webscraper" />
       <item itemvalue="Python.SentimentCalculator" />
       <item itemvalue="Python.SentimentController" />
+      <item itemvalue="Python.SentimentController (1)" />
+      <item itemvalue="Python.unitTests" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.SentimentController (1)" />
+        <item itemvalue="Python.unitTests" />
         <item itemvalue="Python.SentimentController" />
         <item itemvalue="Python.SentimentCalculator" />
         <item itemvalue="Python.Webscraper" />
-        <item itemvalue="Python.updateLexicon" />
-        <item itemvalue="Python.csvParser" />
       </list>
     </recent_temporary>
   </component>
@@ -277,7 +309,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="35" width="1440" height="810" extended-state="1" />
+    <frame x="0" y="23" width="1440" height="814" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24947146" />
@@ -285,7 +317,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.41922006" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.41922006" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39945653" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -314,16 +346,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Sentiment Analyzer/SentimentCalculator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="15" column="90" selection-start-line="15" selection-start-column="90" selection-end-line="15" selection-end-column="90" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Sentiment Analyzer/Webscraper.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
@@ -334,17 +356,60 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Sentiment Analyzer/SentimentPredictor.py">
+    <entry file="file://$PROJECT_DIR$/Sentiment Analyzer/SentimentController.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="170" selection-start-line="16" selection-start-column="170" selection-end-line="16" selection-end-column="170" />
+        <state relative-caret-position="705">
+          <caret line="50" column="12" selection-start-line="50" selection-start-column="12" selection-end-line="50" selection-end-column="12" />
+          <folding>
+            <element signature="e#0#51#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Sentiment Analyzer/SentimentController.py">
+    <entry file="file://$PROJECT_DIR$/SentimentDemo/FinanceLexicon.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Sentiment Analyzer/SentimentPredictor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="26" lean-forward="true" selection-start-line="3" selection-start-column="26" selection-end-line="3" selection-end-column="26" />
+        <state relative-caret-position="105">
+          <caret line="7" column="45" selection-start-line="7" selection-start-column="45" selection-end-line="7" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SentimentDemo/SentimentPredictor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="47" selection-start-line="9" selection-start-column="47" selection-end-line="9" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Sentiment Analyzer/SentimentCalculator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="15" column="90" selection-start-line="15" selection-start-column="90" selection-end-line="15" selection-end-column="90" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SentimentDemo/SentimentController.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="24" lean-forward="true" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#51#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Sentiment Analyzer/unitTests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="47" selection-start-line="12" selection-start-column="47" selection-end-line="12" selection-end-column="47" />
+          <folding>
+            <element signature="e#0#51#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -34,6 +34,7 @@ e1.place(x=680,  y=550)
 
 ##########################################################
 def main():
+    #Integration Test: SentimentAnalyzer (the main function doubles as the integration test for the Sentiment Analyzer component)
     sentCalculator = SentimentCalculator()
     webScraper = Webscraper()
     sentPredictor = SentimentPredictor()
