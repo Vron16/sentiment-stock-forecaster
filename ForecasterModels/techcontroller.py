@@ -46,6 +46,3 @@ def storePrediction():
     #mycursor.execute(query)
     #cnx.close()
     return
-
-#getStockData("AAPL")
-getPrediction("AAPL")
