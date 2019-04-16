@@ -4,6 +4,9 @@
 ### DATELINE SHOULD BE A DEFAULT PACKAGE
 from statsmodels.tsa.arima_model import ARIMA
 import datetime
+import numpy as np
+
+from numpy import fft
 
 # ----------------- Rate of Change ------------------#
 
@@ -277,11 +280,56 @@ def getARIMA(stock_data):
 
     return fc
 
-def aggregatePrediction(roc, stoch_os, asi, arima_prediction):
+def fourierExtrapolation(stock_data, n_predict):
+    n = stock_data.size
+    n_harm = 10  # number of harmonics in model
+    t = np.arange(0, n)
+    p = np.polyfit(t, stock_data, 1)  # find linear trend in x
+    stock_data_notrend = stock_data - p[0] * t  # detrended x
+    stock_data_freqdom = fft.fft(stock_data_notrend)  # detrended x in frequency domain
+    f = fft.fftfreq(n)  # frequencies
+    indexes = list(range(n))
+    # sort indexes by frequency, lower -> higher
+    indexes.sort(key=lambda i: np.absolute(f[i]))
+
+    t = np.arange(0, n + n_predict)
+    restored_sig = np.zeros(t.size)
+    for i in indexes[:1 + n_harm * 2]:
+        ampli = np.absolute(stock_data_freqdom[i]) / n  # amplitude
+        phase = np.angle(stock_data_freqdom[i])  # phase
+        restored_sig += ampli * np.cos(2 * np.pi * f[i] * t + phase)
+    return restored_sig + p[0] * t
+
+
+def getFourier(stock_data):
+    data = []
+    for i in stock_data:
+        data = [i] + data
+    
+    np_stock_data = np.array(data)
+    n_predict = 3
+    extrapolation = fourierExtrapolation(np_stock_data, n_predict)
+    #pl.plot(np.arange(0, extrapolation.size), extrapolation, 'r', label='extrapolation')
+    #pl.plot(np.arange(0, np_stock_data.size), np_stock_data, 'b', label='stock_data', linewidth=3)
+    #pl.legend()
+    #pl.show()
+    print(extrapolation)
+    print(extrapolation[-3])
+    print(extrapolation[-2])
+    print(extrapolation[-1])
+    #print(np_stock_data.size)
+    #print (extrapolation.size)
+    predicted = []
+    for i in range(n_predict):
+        predicted.append(extrapolation[-1*(n_predict - i)])
+    return predicted
+
+
+def aggregatePrediction(roc, stoch_os, asi, arima_prediction, fourier_prediction):
     # This is our averager. For the purpose of the demo here we printed all of our results and returned the ARIMA prediction
     print("Rate of change: ", roc[0])
     print("Stochastic Oscillator: ", stoch_os[0])
     print("Accumulative Swing Index: ", asi[0])
     print("ARIMA Prediction: ", arima_prediction)
-
+    print("Fourier Predictions: ", fourier_prediction)
     return arima_prediction
