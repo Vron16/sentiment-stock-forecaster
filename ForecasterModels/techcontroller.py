@@ -54,6 +54,7 @@ def graph_data(time_stamps, stock_data, stock_name):
     plt.xlabel('Date')
     plt.ylabel('Price')
     plt.title(stock_name)
+    plt.savefig('plot.png')
     plt.show()
     return
 
