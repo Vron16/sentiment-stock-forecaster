@@ -25,7 +25,10 @@ class SentimentController:
 
         headlines = self.requestHeadlines(ticker)
         avgScore = self.calcAvgSentScore(headlines)
-        return 'Average Score of all Headlines Analyzed is: ' + str(avgScore) + "\n" + self.requestPrediction(avgScore)
+        k = 'Average Sentiment Score of all Headlines Analyzed is: ' + str(avgScore)
+        l = self.requestPrediction(avgScore)
+        array = [k, l]
+        return array
         #self.updateDB(avgScore)
 
         #print sentCalculator.calculate("Microsoft's stock riding 7-day win streak toward another record close")
