@@ -172,7 +172,6 @@ def getStochasticOscillator(stockData):
     return so
 
 
-
 # -------------------ASI--------------------
 
 def getSwing(stock_Data, priceSamplesPerDay, priceSamplesToday):
@@ -234,14 +233,14 @@ def getASI(stock_Data):
     yesterdaySamples = 0
 
     ASI = []
-    
+
     # Find all of the prices for a single day, call getSwing() to get Swing Index for that day
     # Append the swing for each day into ASI
-    for k in range(len(times)-1):
+    for k in range(len(times) - 1):
         todaySamples += 1
         if times[k + 1].hour == 16:
             if yesterdaySamples != 0 and todaySamples != 0:
-                ASI.append(getSwing(high_prices[0 : k], yesterdaySamples, todaySamples))
+                ASI.append(getSwing(high_prices[0: k], yesterdaySamples, todaySamples))
             yesterdaySamples = todaySamples
             todaySamples = 0
 
@@ -249,32 +248,33 @@ def getASI(stock_Data):
 
     return ASI
 
+
 # ----------------- ARIMA ------------------#
 
 
 def getARIMA(stock_data):
-    
     # fc will hold the forecast made by ARIMA
     fc = -1
-    if (len(stock_data) < 1): # if the list is empty, return -1
+    if (len(stock_data) < 1):  # if the list is empty, return -1
         return fc
 
     # p is a parameter for the ARIMA model, and can act as a looping iterator
     p = 5
     while (1):
-        try: # we try to fit the data to the ARIMA model, with p initially at 5
-            if (p == 0): # base case condition: if we looped five times already, 
-                         # there wasn't enough stock data to make a meaningful prediction, return -2
+        try:  # we try to fit the data to the ARIMA model, with p initially at 5
+            if (p == 0):  # base case condition: if we looped five times already,
+                # there wasn't enough stock data to make a meaningful prediction, return -2
                 return -2
             model = ARIMA(stock_data, order=(p, 1, 0))
             model_fit = model.fit(disp=0)
             # if the model fits, we can ask it to make a prediction, and return it
             fc = model_fit.forecast()[0][0]
             return fc
-        except: # the model could not fit, so we try again by decrementing p
+        except:  # the model could not fit, so we try again by decrementing p
             p -= 1
 
     return fc
+
 
 def fourierExtrapolation(stock_data, n_predict):
     n = stock_data.size
@@ -298,32 +298,32 @@ def fourierExtrapolation(stock_data, n_predict):
 
 
 def getFourier(stock_data):
-    
     np_stock_data = np.array(stock_data)
     n_predict = 3
     extrapolation = fourierExtrapolation(np_stock_data, n_predict)
-    #pl.plot(np.arange(0, extrapolation.size), extrapolation, 'r', label='extrapolation')
-    #pl.plot(np.arange(0, np_stock_data.size), np_stock_data, 'b', label='stock_data', linewidth=3)
-    #pl.legend()
-    #pl.show()
+    # pl.plot(np.arange(0, extrapolation.size), extrapolation, 'r', label='extrapolation')
+    # pl.plot(np.arange(0, np_stock_data.size), np_stock_data, 'b', label='stock_data', linewidth=3)
+    # pl.legend()
+    # pl.show()
     print(extrapolation)
     print(extrapolation[-3])
     print(extrapolation[-2])
     print(extrapolation[-1])
-    #print(np_stock_data.size)
-    #print (extrapolation.size)
+    # print(np_stock_data.size)
+    # print (extrapolation.size)
     predicted = []
     for i in range(n_predict):
-        predicted.append(extrapolation[-1*(n_predict - i)])
+        predicted.append(extrapolation[-1 * (n_predict - i)])
     return predicted
 
 
-def aggregatePrediction(roc, stoch_os, asi, cur_price, arima_prediction, fourier_prediction):
-     # This is our averager. For the purpose of the demo here we printed all of our results and returned the ARIMA prediction
+def aggregatePrediction(roc, stoch_os, asi, curPrice, arima_prediction, fourier_prediction):
+    # This is our averager. For the purpose of the demo here we printed all of our results and returned the ARIMA prediction
+
     print("Rate of change: ", roc[0])
     print("Stochastic Oscillator: ", stoch_os[0])
     print("Accumulative Swing Index: ", asi[0])
-
+    print("Current Price: ", curPrice)
     print("Unweighted ARIMA Prediction: ", arima_prediction)
     print("Unweighted Fourier Predictions: ", fourier_prediction)
 
@@ -337,11 +337,11 @@ def aggregatePrediction(roc, stoch_os, asi, cur_price, arima_prediction, fourier
         weight_ar = weight_ar - 0.1
         weight_four = weight_four - 0.1
 
-
     weight_ar = weight_ar + 0.1 * asi[0]
     weight_four = weight_four + 0.1 * asi[0]
 
     print("Weighted ARIMA Prediction: ", weight_ar)
     print("Weighted Fourier Prediction: ", weight_four)
 
-    return weight_ar
+    return [weight_ar, weight_four]
+
