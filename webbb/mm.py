@@ -38,7 +38,6 @@ def printRocs(rocs):
         print(r)
 
 
-# TODO: get closing by parsing through 5 min intervals list
 def getClosingPrices(times, list):
     # get the closing prices for all days
     # because the stock market closes at 4pm, check if times[i].hour == 16
@@ -301,16 +300,12 @@ def getFourier(stock_data):
     np_stock_data = np.array(stock_data)
     n_predict = 3
     extrapolation = fourierExtrapolation(np_stock_data, n_predict)
-    # pl.plot(np.arange(0, extrapolation.size), extrapolation, 'r', label='extrapolation')
-    # pl.plot(np.arange(0, np_stock_data.size), np_stock_data, 'b', label='stock_data', linewidth=3)
-    # pl.legend()
-    # pl.show()
+
     print(extrapolation)
     print(extrapolation[-3])
     print(extrapolation[-2])
     print(extrapolation[-1])
-    # print(np_stock_data.size)
-    # print (extrapolation.size)
+
     predicted = []
     for i in range(n_predict):
         predicted.append(extrapolation[-1 * (n_predict - i)])

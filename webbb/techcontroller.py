@@ -1,10 +1,10 @@
 import mysql.connector as ms
 import datetime
-import mm
-from matplotlib import pyplot as plt
+import webbb.mm as mm
 import numpy as np
-
-prediction = 0
+from matplotlib import pyplot as plt
+import matplotlib
+matplotlib.use('Agg')
 
 
 def getStockData(stock_name):
@@ -12,7 +12,7 @@ def getStockData(stock_name):
                      database='mydb')
     mycursor = cnx.cursor()
 
-    query = "SELECT datetime, open, high, low, close FROM day_price WHERE stock_code = '" + stock_name + "'"
+    query = "SELECT datetime, open, high, low, close FROM day_price WHERE stock_code = '" + stock_name + "' ORDER BY datetime DESC"
     mycursor.execute(query)
     result = mycursor.fetchall()
 
@@ -22,13 +22,6 @@ def getStockData(stock_name):
     high_prices = [i[2] for i in result]
     low_prices = [i[3] for i in result]
 
-    '''    
-    for i in range(len(time_stamps)):
-        print(time_stamps[i])
-        if(i > 0):
-            if(time_stamps[i].day < time_stamps[i-1].day):
-                print("Bigger?")
-    '''
     cnx.close()
     return (time_stamps, high_prices, low_prices, open_prices, close_prices)
 
@@ -48,18 +41,19 @@ def graph_data(time_stamps, stock_data, stock_name):
     np_stock_data = np.array(latest)
     plt.plot(ticks, np_stock_data, 'b', linewidth=2)
     print(latest[-1])
-    if (prediction >= latest[-1]):
+    if prediction >= latest[-1]:
         plt.plot(102, prediction, 'g+', linestyle='dashed')
     else:
-        plt.plot(102, prediction, 'r-', linestyle='dashed')
+        plt.plot(102, prediction, 'rx', linestyle='dashed')
 
     plt.xticks(ticks[::20], ts[::20], rotation=45)
     plt.grid(color='k', linestyle='--', linewidth=1, axis='x')
     plt.xlabel('Date')
     plt.ylabel('Price')
     plt.title(stock_name)
-    plt.savefig('static/a.jpg')
-    # plt.show()
+    plt.tight_layout()
+    plt.savefig('static/assets/img/a.jpg')
+    plt.clf()
     return
 
 
@@ -71,8 +65,9 @@ def getPrediction(stock_name):
         print("Please enter another stock.")
         return []
     roc = mm.getRateOfChange(stock_data)  # array
+    if not roc:
+        roc = [0];
     stoch_os = mm.getStochasticOscillator(stock_data)  # array
-    cur_price = mm.getCurPrice(stock_data[4])
     asi = mm.getASI(stock_data)  # array
     curPrice = mm.getCurPrice(stock_data[4])
 
@@ -88,16 +83,4 @@ def getPrediction(stock_name):
     data.append(prediction[0])
     graph_data(stock_data[0], data, stock_name)
 
-    return [roc[0], stoch_os[0], asi[0], curPrice, arima_prediction, fourier_prediction, prediction[0], prediction[1]]
-
-
-def storePrediction():
-    # cnx = ms.connect(user='root', password='mypassword', host='mydb.cwtgu3tqnwx8.us-east-2.rds.amazonaws.com', database='mydb')
-    # mycursor = cnx.cursor()
-
-    # query = "SELECT datetime, open, high, low, close FROM day_price WHERE stock_code = '" + stock_name + "'"
-    # mycursor.execute(query)
-    # cnx.close()
-    return
-
-#getPrediction("AAPL")
+    return [roc[0], stoch_os[0], asi[0], curPrice, arima_prediction, fourier_prediction[0], prediction[0], prediction[1], stock_name]
