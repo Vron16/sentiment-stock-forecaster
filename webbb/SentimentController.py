@@ -18,6 +18,19 @@ class SentimentController:
         #print sentCalculator.calculate("Microsoft's stock riding 7-day win streak toward another record close")
         #print sentCalculator.calculate("Alphabet (GOOGL) Dips More Than Broader Markets: What You Should Know")
 
+    def trend(self, ticker):
+        headlines5 = self.requestHeadlines(ticker)
+        headlines20 = self.requestHeadlines20(ticker)
+        headlines30 = self.requestHeadlines30(ticker)
+        avgScore5 = self.calcAvgSentScore(headlines5)
+        avgScore20 = self.calcAvgSentScore(headlines20)
+        avgScore30 = self.calcAvgSentScore(headlines30)
+
+    def requestPrediction(self, averageSent):
+        senttPreditor = SentimentPredictor()
+        return senttPreditor.predict(averageSent)
+
+
     def finalToUser(self, ticker):
         sentCalculator = SentimentCalculator()
         webScraper = Webscraper()
@@ -38,6 +51,14 @@ class SentimentController:
     def requestHeadlines(self, ticker):
         webScraperr = Webscraper()
         return webScraperr.getHeadlines(ticker)
+
+    def requestHeadlines20(self, ticker):
+        webScraperr = Webscraper()
+        return webScraperr.getHeadlines20(ticker)
+
+    def requestHeadlines30(self, ticker):
+        webScraperr = Webscraper()
+        return webScraperr.getHeadlines30(ticker)
 
 
     def printHeadlines(self, headlines):
@@ -62,10 +83,6 @@ class SentimentController:
             numHeadlines += 1
         return (totalScore/numHeadlines)
 
-
-    def requestPrediction(self, averageSent):
-        senttPredictor = SentimentPredictor()
-        return senttPredictor.predict(averageSent)
 
 
     # def updateDB(sentiment, stockname):
