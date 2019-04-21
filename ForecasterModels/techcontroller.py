@@ -45,24 +45,30 @@ def graph_data(time_stamps, stock_data, stock_name):
     np_stock_data = np.array(latest)
     plt.plot(ticks, np_stock_data, 'b', linewidth=2)
     if(prediction >= latest[-1]):
-            plt.plot(105, prediction, 'g+', linestyle='dashed')
+            plt.plot(102, prediction, 'g+', linestyle='dashed')
     else:
-            plt.plot(105, prediction, 'r-', linestyle='dashed')
+            plt.plot(102, prediction, 'r-', linestyle='dashed')
     
     plt.xticks(ticks[::20], ts[::20], rotation=45)
     plt.grid(color='k', linestyle='--', linewidth=1, axis='x')
     plt.xlabel('Date')
     plt.ylabel('Price')
     plt.title(stock_name)
-    plt.savefig('plot.png')
-    plt.show()
+    plt.savefig('static/a.jpg')
+    #plt.show()
     return
 
 
 def getPrediction(stock_name):
-    stock_data = getStockData(stock_name)    
+    stock_data = getStockData(stock_name)
+    
+    if not stock_data[0]:
+        print("Sorry, the stock you requested is not in our database.")
+        print("Please enter another stock.")
+        return
     roc = mm.getRateOfChange(stock_data) #array
     stoch_os = mm.getStochasticOscillator(stock_data) #array
+    cur_price = mm.getCurPrice(stock_data[4])
     asi = mm.getASI(stock_data) #array
     
     data = []
@@ -72,20 +78,11 @@ def getPrediction(stock_name):
     arima_prediction = mm.getARIMA(data) #double
     fourier_prediction = mm.getFourier(data)
     
-    prediction = mm.aggregatePrediction(roc, stoch_os, asi, arima_prediction, fourier_prediction)
+    prediction = mm.aggregatePrediction(roc, stoch_os, asi, cur_price, arima_prediction, fourier_prediction)
         
     data.append(prediction)
     graph_data(stock_data[0], data, stock_name)
     return
   
-def storePrediction():
-    #cnx = ms.connect(user='root', password='mypassword', host='mydb.cwtgu3tqnwx8.us-east-2.rds.amazonaws.com', database='mydb')
-    #mycursor = cnx.cursor()
-
-    #query = "SELECT datetime, open, high, low, close FROM day_price WHERE stock_code = '" + stock_name + "'"
-    #mycursor.execute(query)
-    #cnx.close()
-    return
-
-#getStockData("AAPL")
-#getPrediction("AAPL")
+#getPrediction("LMAO")
+getPrediction("AAPL")

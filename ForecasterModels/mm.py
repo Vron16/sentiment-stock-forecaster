@@ -318,7 +318,7 @@ def getFourier(stock_data):
     return predicted
 
 
-def aggregatePrediction(roc, stoch_os, asi, arima_prediction, fourier_prediction):
+def aggregatePrediction(roc, stoch_os, asi, cur_price, arima_prediction, fourier_prediction):
      # This is our averager. For the purpose of the demo here we printed all of our results and returned the ARIMA prediction
     print("Rate of change: ", roc[0])
     print("Stochastic Oscillator: ", stoch_os[0])
