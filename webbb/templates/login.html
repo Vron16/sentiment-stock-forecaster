@@ -82,7 +82,6 @@
                    return false;
             }
 
-            $("#techImage").attr("src", "{{url_for('static', filename='assets/img/logos/default.png')}}");
             $("#techImage").attr("src", "{{url_for('static', filename='assets/img/a.jpg')}}" + "?" + new Date().getTime());
 
             singlePredictions = "Rate of Change: measures the rate of change in 5 day increments\n";
