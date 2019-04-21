@@ -96,6 +96,73 @@
 
 
 
+
+
+{#  Search Button for Tech Forecaster starts here#}
+
+    <script type=text/javascript>
+      $(function() {
+        $('a#searchTech').bind('click', function() {
+        $.getJSON('/techFunc', {
+            stockNameTech: $('input[name="stockNameTech"]').val(),
+        }, function(data) {
+            console.log(data);
+            singlePredictions = "Rate of Change: measures the rate of change in 5 day increments ==> " + data[0] + "%.\n";
+            if (data[0] > 0) {
+                singlePredictions += "\tA positive rate of change indicates growth in the future.\n"
+            } else {
+                singlePredictions += "\tA negative rate of change indicates a drop in the price in the future.\n"
+            }
+
+            singlePredictions += "Stochastic Oscillator: measures the likelihood that a stock will fluctuate ==> " + data[1] + "%.\n";
+            if (data[1] > 20 && data[1] < 80) {
+                singlePredictions += "\tA stochastic oscillator percentage between 20 and 80 indicates stability in price.\n"
+            } else {
+                singlePredictions += "\tA stochastic oscillator percentage under 20 or over 80 indicates very volatile prices.\n"
+            }
+
+            singlePredictions += "Accumulative Swing Index: measures the volatility and trend of a stock ==> " + data[2] + "%.\n";
+            if (data[2] > 0) {
+                singlePredictions += "\tA positive accumulative swing index indicates a long term upward trend.\n"
+            } else {
+                singlePredictions += "\tA negative accumulative swing index indicates a long term downward trend.\n"
+            }
+
+            curPrice = data[3];
+
+            singlePredictions += "ARIMA: creates best fit to a polynomial function to predict next stock price ==> $" + data[4] + ".\n";
+            if (data[4] > curPrice) {
+                singlePredictions += "\tThe predicted price with ARIMA is higher than the current price, indicating a growth in stock prices immediately.\n"
+            } else {
+                singlePredictions += "\tThe predicted price with ARIMA is lower than the current price, indicating a drop in stock prices immediately.\n"
+            }
+
+            singlePredictions += "Fast Fourier: creates best fit to a sum of periodic functions to predict next stock price ==> $" + data[5][0] + ".\n";
+            if (data[5][0] > curPrice) {
+                singlePredictions += "\tThe predicted price with Fast Fourier is higher than the current price, indicating a growth in stock prices in the future.\n"
+            } else {
+                singlePredictions += "\tThe predicted price with Fast Fourier is lower than the current price, indicating a drop in stock prices in the future.\n"
+            }
+
+            $("#techPredictions").text(singlePredictions);
+
+
+            weightedPredictions = "In the near future, the predicted stock price is:" + data[6] + "\n";
+            weightedPredictions += "In the farther future, the predicted stock price is:" + data[7][0];
+
+            $("#WeightedPredictions").text(weightedPredictions);
+
+        });
+
+        console.log("Done");
+        return false;
+        });
+      });
+    </script>
+
+
+
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -262,7 +329,7 @@
 </section>
 
 
-<!-- Slide 3 (#08) Foreccaster-->
+<!-- Slide 3 (#08) Forecaster-->
 <section id="TechForeaster" class="slide fade-6 kenBurns">
   <div class="content">
     <div class="container">
@@ -276,6 +343,14 @@
           <div class="margin-top-2">
             <p class="ae-3"><span class="opacity-8">Start now and get <b>free bonus</b> on account</span></p>
           </div>
+            </div>
+            <div id = "techHeader" class="margin-top-0">
+              <form class="slides-form" action="#">
+                <input type=text class="input-8 ae-6 fromCenter" name=stockNameTech placeholder="Enter stock name" val="" id = "myInputTech"/>
+                <a href=#ForecasterDisplay  id=searchTech><button type="submit" class="button blue gradient ae-7 fromCenter" name="button">Search</button></a>
+                  <p id=userInputTech> </p>
+              </form>
+          </div>
         </div>
       </div>
     </div>
@@ -283,7 +358,41 @@
   <div class="background" style="background-image:url(/static/assets/img/background/img-08.jpg)"></div>
 </section>
 
-<!-- Slide 4 AutoTrader(#08) -->
+
+<!-- Slide 4 Forecaster without search bar-->
+<section id="ForecasterDisplay" class="slide fade-6 kenBurns">
+  <div class="content">
+    <div class="container">
+      <div class="wrap">
+        <div class="fix-12-12">
+          <div class="fix-3-12">
+            <img height = "150" width = "300" class="wide ae-1"  src="{{url_for('static', filename='assets/img/logos/forecaster.png')}}"/>
+          </div>
+                <div class="class1">
+                <pre style="white-space: pre-wrap;">
+              <p  style="font-size:15px; font-family: Arial, Helvetica, sans-serif;" id="techPredictions"></p>
+             </pre>
+          </div>
+
+        <div class="class5">
+          </div>
+
+            <div class="class2">
+                <pre style="white-space: pre-wrap;">
+                    <p  style="font-size:15px; font-family: Arial, Helvetica, sans-serif;" id="weightedPredictions"></p>
+             </pre>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="background" style="background-image:url(/static/assets/img/background/img-08.jpg)"></div>
+</section>
+
+
+<!-- Slide 5 AutoTrader(#08) -->
 <section id="AutoTrader" class="slide fade-6 kenBurns">
   <div class="content">
     <div class="container">
