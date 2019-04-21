@@ -5,7 +5,6 @@
 from statsmodels.tsa.arima_model import ARIMA
 import datetime
 import numpy as np
-import json
 
 from numpy import fft
 
@@ -254,14 +253,9 @@ def getASI(stock_Data):
 
 
 def getARIMA(stock_data):
-    # Because the stock prices are reveresed, we push each price to the front of data
-    data = []
-    for i in stock_data:
-        data = [i] + data
-
     # fc will hold the forecast made by ARIMA
     fc = -1
-    if (len(data) < 1):  # if the list is empty, return -1
+    if (len(stock_data) < 1):  # if the list is empty, return -1
         return fc
 
     # p is a parameter for the ARIMA model, and can act as a looping iterator
@@ -271,7 +265,7 @@ def getARIMA(stock_data):
             if (p == 0):  # base case condition: if we looped five times already,
                 # there wasn't enough stock data to make a meaningful prediction, return -2
                 return -2
-            model = ARIMA(data, order=(p, 1, 0))
+            model = ARIMA(stock_data, order=(p, 1, 0))
             model_fit = model.fit(disp=0)
             # if the model fits, we can ask it to make a prediction, and return it
             fc = model_fit.forecast()[0][0]
@@ -304,11 +298,7 @@ def fourierExtrapolation(stock_data, n_predict):
 
 
 def getFourier(stock_data):
-    data = []
-    for i in stock_data:
-        data = [i] + data
-
-    np_stock_data = np.array(data)
+    np_stock_data = np.array(stock_data)
     n_predict = 3
     extrapolation = fourierExtrapolation(np_stock_data, n_predict)
     # pl.plot(np.arange(0, extrapolation.size), extrapolation, 'r', label='extrapolation')
@@ -353,16 +343,5 @@ def aggregatePrediction(roc, stoch_os, asi, curPrice, arima_prediction, fourier_
     print("Weighted ARIMA Prediction: ", weight_ar)
     print("Weighted Fourier Prediction: ", weight_four)
 
-    arr = []
-    arr.append(roc[0])
-    arr.append(stoch_os[0])
-    arr.append(asi[0])
-    arr.append(curPrice)
-    arr.append(arima_prediction)
-    arr.append(fourier_prediction)
-    arr.append(weight_ar)
-    arr.append(weight_four)
+    return [weight_ar, weight_four]
 
-    return json.dumps(arr)
-
-    #return arima_prediction
