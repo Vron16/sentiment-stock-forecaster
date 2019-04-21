@@ -30,54 +30,6 @@
 			});
 		</script>
 
-    <script type=text/javascript>
-      $(function() {
-        $('a#search').bind('click', function() {
-        $.getJSON('/testFunc', {
-            stockName: $('input[name="stockName"]').val(),
-        }, function(data) {
-            //{#var headlines = '';#}
-            //{#for (var i = 0; i < 5; i++) {#}
-            //{#    var index = 0;#}
-            //{#    index = i + 1;#}
-            //{#    headlines += index + '. ' + data[i] + "\n";#}
-            if (!Array.isArray(data)) {
-              $("#headlineDisplay").text(data);
-              $("#avgScore").text("");
-              $("#prediction").text("");
-            }
-            else {
-              if (data.length == 0) {
-                $("#headlineDisplay").text("Unfortunately, there is not enough news on the web to construct a prediction based on sentiment analysis.");
-                $("#avgScore").text("");
-                $("#prediction").text("");
-              }
-              var headline1 = data[0][0];
-              var headline2 = data[0][1];
-              var headline3 = data[0][2];
-              var headline4 = data[0][3];
-              var headline5 = data[0][4];
-              var avgScore = data[1][0];
-              var prediction = data[1][1];
-
-              $("#headlineDisplay").text("Top five news headlines:" + "\n" + "1- " + headline1 + ". " + "\n"
-                        + "2- " + headline2 + "." + "\n" + "3- " + headline3 + "." + "\n"
-                        + "4- " + headline4 + "." + "\n" + "5- " + headline5 + "." + "\n") ;
-              $("#avgScore").text(avgScore + "." + "\n" );
-              $("#prediction").text(prediction);
-            }
-
-        });
-        console.log("Done");
-        return false;
-        });
-      });
-    </script>
-{#        Search Button for Sentiment Analyzer ends here#}
-{#    Register Button for Account starts here#}
-
-{#        Register Button for Account ends here#}
-    {#    login Button for Account starts here#}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<script type=text/javascript>
 			$(function() {
