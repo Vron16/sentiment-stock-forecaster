@@ -8,70 +8,122 @@
 
 {#    Search Button for Sentiment Analyzer starts here#}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-		<script type=text/javascript>
-			$(function() {
-			  $('a#search').bind('click', function() {
-				$.getJSON('/testFunc', {
-				    stockName: $('input[name="stockName"]').val(),
-				}, function(data) {
-				    {#var headlines = '';#}
-				    {#for (var i = 0; i < 5; i++) {#}
-				    {#    var index = 0;#}
-				    {#    index = i + 1;#}
-				    {#    headlines += index + '. ' + data[i] + "\n";#}
-				    var headline1 = data[0][0];
-				    var headline2 = data[0][1];
+        <script type="text/javascript">
+            $(function() {
+                $.getJSON('/tickerRequest', function(data) {
+                    console.log(data);
+
+                    var stockAmount = data.length;
+
+                     for (var i = 0; i < stockAmount; ++i){
+
+                        $("#header ul").append('<li class="inliner" style = "display: none"><a href="#SentAnalyzer">' + data[i] + '</a></li>');
+                    }
+
+                });
+            });
+            function myFunction() {
+
+
+  var input, filter, ul, li, a, i, txtValue;
+  input = document.getElementById('myInput');
+  filter = input.value.toUpperCase();
+  ul = document.getElementById("myUL");
+  li = ul.getElementsByTagName('li');
+
+
+
+  for (i = 0; i < li.length; i++) {
+
+    a = li[i].getElementsByTagName("a")[0];
+    txtValue = a.textContent || a.innerText;
+
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+    if (input.value == 0){
+        li[i].style.display = "none";
+    }
+  }
+    $('li.inliner').on('click',function(){
+        var regExp = /\(([^)]+)\)/;
+        var content = $(this).text();
+        var matches = regExp.exec(content);
+
+        console.log(matches[1]);
+
+        $('#myInput').val(matches[1]);
+
+  });
+}
+
+        </script>
+    <script type=text/javascript>
+      $(function() {
+        $('a#search').bind('click', function() {
+        $.getJSON('/testFunc', {
+            stockName: $('input[name="stockName"]').val(),
+        }, function(data) {
+            //{#var headlines = '';#}
+            //{#for (var i = 0; i < 5; i++) {#}
+            //{#    var index = 0;#}
+            //{#    index = i + 1;#}
+            //{#    headlines += index + '. ' + data[i] + "\n";#}
+            var headline1 = data[0][0];
+            var headline2 = data[0][1];
                     var headline3 = data[0][2];
-				    var headline4 = data[0][3];
-				    var headline5 = data[0][4];
+            var headline4 = data[0][3];
+            var headline5 = data[0][4];
                     var avgScore = data[1][0];
                     var prediction = data[1][1];
 
-				    $("#headlineDisplay").text("Top five news headlines:" + "\n" + "1- " + headline1 + ". " + "\n"
+            $("#headlineDisplay").text("Top five news headlines:" + "\n" + "1- " + headline1 + ". " + "\n"
                         + "2- " + headline2 + "." + "\n" + "3- " + headline3 + "." + "\n"
                         + "4- " + headline4 + "." + "\n" + "5- " + headline5 + "." + "\n") ;
-				    $("#avgScore").text(avgScore + "." + "\n" );
+            $("#avgScore").text(avgScore + "." + "\n" );
                     $("#prediction").text(prediction);
-				});
+        });
 
-				console.log("Done");
-				return false;
-			  });
-			});
-		</script>
+        console.log("Done");
+        return false;
+        });
+      });
+    </script>
 {#        Search Button for Sentiment Analyzer ends here#}
 
 
 
 
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, viewport-fit=cover">
-	<meta name="apple-mobile-web-app-capable" content="yes" />
-	<!-- Page Title -->
-	<title>New Template — Slides 4.2.1 Template Generator</title>
-	<!-- Compressed Styles -->
-	<link href="{{ url_for('static', filename='css/slides.min.css') }}" rel="stylesheet" type="text/css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <!-- Page Title -->
+  <title>KA$H</title>
+  <!-- Compressed Styles -->
+  <link href="{{ url_for('static', filename='css/slides.min.css') }}" rel="stylesheet" type="text/css">
     <style type="text/css">
         #inner {
             width: 50%;
-			height: 50%;
-			margin-top: 0;
-			position: relative;
+      height: 50%;
+      margin-top: 0;
+      position: relative;
         }
     </style>
 <!-- Custom Styles -->
 <!-- <link href="css/custom.css" rel="stylesheet" type="text/css"> -->
 <!-- jQuery 3.3.1 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<!-- Compressed Scripts -->
-	<script src= "{{url_for('static', filename='js/slides.min.js')}}" type="text/javascript"></script>
+  <!-- Compressed Scripts -->
+  <script src= "{{url_for('static', filename='js/slides.min.js')}}" type="text/javascript"></script>
 <!-- Custom Scripts -->
 <!-- <script src="js/custom.js" type="text/javascript"></script> -->
 
 <!-- Fonts and Material Icons -->
-	<link rel="stylesheet" as="font" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,600,700|Material+Icons"/>
-	<!-- For demousers scripts and styles -->
-	</head>
+  <link rel="stylesheet" as="font" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,600,700|Material+Icons"/>
+  <!-- For demousers scripts and styles -->
+  </head>
 <body class="slides smoothScroll noPreload animated">
 
 
@@ -104,8 +156,8 @@
       <div class="wrap">
         <div class="fix-12-12">
           <div class="fix-3-12">
-						<img height = "150" class="wide ae-1"  src="{{url_for('static', filename='assets/img/logos/kash.png')}}"/>
-					</div>
+            <img height = "150" class="wide ae-1"  src="{{url_for('static', filename='assets/img/logos/kash.png')}}"/>
+          </div>
           <p class="hero fix-9-12 margin-top-2 ae-2"><span class="opacity-8">Earn some cash today with our Automated Stock Trader!</span></p>
           <div class="margin-top-2">
             <p class="ae-3"><span class="opacity-8">Start now and get <b>trading</b>!</span></p>
@@ -137,13 +189,14 @@
           <div class="margin-top-0">
               <p class="ae-3"><span class="opacity-8">We can give you an estimated prediction of a stock of your choosing based on news headlines. <b> Check it out!</b> </span></p>
           </div>
-            <div class="margin-top-0">
+            <div id = "header" class="margin-top-0">
               <form class="slides-form" action="#">
-                <input type=text class="input-8 ae-6 fromCenter" name=stockName placeholder="Enter stock name" val=""/>
+                <input type=text class="input-8 ae-6 fromCenter" name=stockName placeholder="Enter stock name" val="" id = "myInput" onkeyup="myFunction()"/>
                 <a href=#SentttAnalyzer  id=search><button type="submit" class="button blue gradient ae-7 fromCenter" name="button">Search</button></a>
 {#                  "href=#SentttAnalyzer"#}
                   <p id=userInput> </p>
               </form>
+                <ul id="myUL"></ul>
           </div>
         </div>
 
