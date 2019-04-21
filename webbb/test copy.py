@@ -1,6 +1,6 @@
 from flask import *
 from webbb.SentimentController import SentimentController
-
+import webbb.techcontroller
 
 app = Flask(__name__)
 
@@ -25,6 +25,11 @@ def testFunc1():
     returned = sentController.finalToUser(data)
     return returned
 
+
+@app.route('/techFunc/', methods=['GET', 'POST'])
+def techFunc():
+    data = request.args.get('stockNameTech', 0, type=str)
+    return webbb.techcontroller.getPrediction(data)
 
 @app.route('/')
 def lionel():
