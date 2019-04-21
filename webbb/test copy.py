@@ -78,6 +78,15 @@ def testFunc():
     array = [headlines, k]
     return jsonify(array)
 
+@app.route('/techFunc/', methods=['GET', 'POST'])
+def techFunc():
+    data = request.args.get('stockNameTech', 0, type=str)
+    print(data)
+    arr = webbb.techcontroller.getPrediction(data)
+    if not arr:
+        return json.dumps([])
+    return json.dumps(arr)
+
 @app.route('/loginn/', methods=['GET', 'POST'])
 def loginn():
     return render_template('login.html')
