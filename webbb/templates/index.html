@@ -57,6 +57,69 @@
 				});
 			  });
 		</script>
+	
+	
+	
+	
+{#  Search Button for Tech Forecaster starts here#}
+
+    <script type=text/javascript>
+      $(function() {
+        $('a#searchTech').bind('click', function() {
+        $.getJSON('/techFunc', {
+            stockNameTech: $('input[name="stockNameTech"]').val(),
+        }, function(data) {
+            console.log(data);
+
+            if (!Array.isArray(data) || !data.length) {
+                  $("#techPredictions").text("The stock is not in our database. Please try again.");
+                  $("#weightedPredictions").text("The stock is not in our database. Please try again.");
+                  $("#techImage").attr("src", "{{url_for('static', filename='assets/img/logos/default.png')}}");
+                   return false;
+            }
+
+            $("#techImage").attr("src", "{{url_for('static', filename='assets/img/logos/default.png')}}");
+            $("#techImage").attr("src", "{{url_for('static', filename='assets/img/a.jpg')}}" + "?" + new Date().getTime());
+
+            singlePredictions = "Rate of Change: measures the rate of change in 5 day increments\n";
+            if (data[0] > 0) {
+                singlePredictions += data[0].toFixed(2) + "% \t A positive rate of change indicates growth in the future.\n"
+            } else {
+                singlePredictions += data[0].toFixed(2) + "% \t A negative rate of change indicates a drop in the price in the future.\n"
+            }
+
+            singlePredictions += "Stochastic Oscillator: measures the likelihood that a stock will fluctuate\n";
+            if (data[1] > 20 && data[1] < 80) {
+                singlePredictions += data[1].toFixed(2) + "% \t A stochastic oscillation between 20% and 80% indicates stability in price.\n"
+            } else {
+                singlePredictions += data[1].toFixed(2) + "% \t A stochastic oscillation under 20% or over 80% indicates very volatile prices.\n"
+            }
+
+            singlePredictions += "Accumulative Swing Index: measures the volatility and trend of a stock\n";
+            if (data[2] > 0) {
+                singlePredictions += data[2].toFixed(2) + "% \t A positive accumulative swing index indicates a long term upward trend.\n"
+            } else {
+                singlePredictions += data[2].toFixed(2) + "% \t A negative accumulative swing index indicates a long term downward trend.\n"
+            }
+
+            curPrice = data[3];
+
+            $("#techPredictions").text(singlePredictions);
+
+            weightedPredictions = data[8] + " current price: " + curPrice + "\n";
+            weightedPredictions += "In the near future, the predicted stock price is: " + data[4].toFixed(2) + "\n";
+            weightedPredictions += "In the farther future, the predicted stock price is: " + data[5].toFixed(2);
+
+            $("#weightedPredictions").text(weightedPredictions);
+
+        });
+
+        console.log("Done");
+        return false;
+        });
+      });
+    </script>
+
 
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, viewport-fit=cover">
@@ -93,6 +156,9 @@
     .class5 {color:white;text-align:justify;border: none;padding: 10px; width: 1000px; height: 15px; font-size: 15px; background-color: transparent;font-style: normal;font-family: Arial, Helvetica, sans-serif;}
     .class6 {color:white;text-align:justify;border: none;padding: 10px; width: 1000px; height: 15px; font-size: 15px;  background: transparent;font-style: normal;font-family: Arial, Helvetica, sans-serif;}
     .class7 {color:white;text-align:center;border: none;padding: 10px; width: 1000px; height: 100px; font-size: 15px;  background-color: grey; background: rgba(255,255,255,0.2);;font-style: normal;font-family: Arial, Helvetica, sans-serif;}
+
+    .classTech1 {color:white;text-align:justify;border: none;padding: 10px; width: 650px; height: 120px; font-size: 15px; background-color: grey; background: rgba(255,255,255,0.2);font-style: normal;font-family: Arial, Helvetica, sans-serif;}
+    .classTech2 {color:white;text-align:justify;border: none;padding: 10px; width: 650px; height: 200px; font-size: 15px; background-color: grey; background: rgba(255,255,255,0.2);font-style: normal; font-family: Arial, Helvetica, sans-serif;}
 </style>
 <!-- Panel Top #library/panel/panel-top-01.html -->
 <nav class="panel top  ">
@@ -196,52 +262,25 @@
   </div>
   <div class="background" style="background-image:url(/static/assets/img/background/img-08.jpg)"></div>
 </section>
-<!-- Slide 2 without the search bar(#08) -->
-<section id="SentttAnalyzer" class="slide fade-6 kenBurns">
-  <div class="content">
-    <div class="container">
-      <div class="wrap">
-        <div class="fix-12-12">
-          <div class="fix-3-12">
-            <img height = "150" width = "300" class="wide ae-1"  src="{{url_for('static', filename='assets/img/logos/sentiment.png')}}"/>
-          </div>
-                <div class="class1">
-                <pre style="white-space: pre-wrap;">
-              <p  style="font-size:15px; font-family: Arial, Helvetica, sans-serif;" id="headlineDisplay"></p>
-             </pre>
-          </div>
-        <div class="class5">
-          </div>
-            <div class="class2">
-                <pre style="white-space: pre-wrap;">
-                    <p  style="font-size:15px; font-family: Arial, Helvetica, sans-serif;" id="avgScore"></p>
-             </pre>
-          </div>
-        <div class="class6">
-          </div>
-            <div class="class3">
-                <pre style="white-space: pre-wrap;">
-                    <p  style="font-size:15px; font-family: Arial, Helvetica, sans-serif;" id="prediction"></p>
-             </pre>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="background" style="background-image:url(/static/assets/img/background/img-08.jpg)"></div>
-</section>
-<!-- Slide 3 (#08) Foreccaster-->
+
+<!-- Slide 3 (#08) Forecaster-->
 <section id="TechForeaster" class="slide fade-6 kenBurns">
   <div class="content">
     <div class="container">
       <div class="wrap">
+
         <div class="fix-12-12">
           <div class="fix-3-12">
             <img height = "200" width = "400" class="wide ae-1"  src="{{url_for('static', filename='assets/img/logos/forecaster.png')}}"/>
           </div>
-          <p class="hero fix-9-12 margin-top-2 ae-2"><span class="opacity-8">We use accurate statistical models to predict the next stock prices and the closing price.</span></p>
-          <div class="margin-top-2">
-            <p class="ae-3"><span class="opacity-8">Start now and get <b>free bonus</b> on account</span></p>
+          <p class="hero fix-9-12 margin-top-2 ae-2"><span class="opacity-8">We use accurate statistical models to predict the next stock prices and the closing price. Select a stock here: </span></p>
+            </div>
+            <div id = "techHeader" class="margin-top-0">
+              <form class="slides-form" action="#">
+                <input type=text class="input-8 ae-6 fromCenter" name=stockNameTech placeholder="Enter stock name" val="" id = "myInputTech"/>
+                <a href=#ForecasterDisplay  id=searchTech><button type="submit" class="button blue gradient ae-7 fromCenter" name="button">Search</button></a>
+                  <p id=userInputTech> </p>
+              </form>
           </div>
         </div>
       </div>
@@ -249,6 +288,47 @@
   </div>
   <div class="background" style="background-image:url(/static/assets/img/background/img-08.jpg)"></div>
 </section>
+
+
+<!-- Slide 4 Forecaster without search bar-->
+<section id="ForecasterDisplay" class="slide fade-6 kenBurns">
+  <div class="content">
+    <div class="container">
+      <div class="wrap">
+        <div class="fix-12-12">
+          <div class="fix-3-12">
+            <img height = "150" width = "300" class="wide ae-1"  src="{{url_for('static', filename='assets/img/logos/forecaster.png')}}"/>
+          </div>
+            <div name="techImageDiv" id="techImageDiv">
+             <img name="techImage" id="techImage" align="right" height = "300" width = "450" src="{{url_for('static', filename='assets/img/a.jpg')}}" onerror="{{url_for('static', filename='assets/img/default.png')}}" />
+          </div>
+
+
+            <div class="classTech1">
+                <pre style="white-space: pre-wrap;">
+                    <p  style="font-size:15px; font-family: Arial, Helvetica, sans-serif;" id="weightedPredictions"></p>
+             </pre>
+             </div>
+
+          <div class="class5">
+          </div>
+
+             <div class="classTech2">
+                <pre style="white-space: pre-wrap;">
+              <p  style="font-size:15px; font-family: Arial, Helvetica, sans-serif;" id="techPredictions"></p>
+             </pre>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="background" style="background-image:url(/static/assets/img/background/img-08.jpg)"></div>
+</section>
+
+
+
 <!-- Slide 4 AutoTrader(#08) -->
 <section id="AutoTrader" class="slide fade-6 kenBurns">
   <div class="content">
