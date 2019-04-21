@@ -1,6 +1,6 @@
+from SentimentController import SentimentController
 from flask import *
-from WEBSITE.SentimentController import SentimentController
-
+import json
 
 app = Flask(__name__)
 
