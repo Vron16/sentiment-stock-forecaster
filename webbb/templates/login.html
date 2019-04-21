@@ -131,7 +131,7 @@
     .class3 {color:white;text-align:justify;border: none;padding: 10px; width: 1000px; height: 90px; font-size: 15px; background-color: grey; background: rgba(255,255,255,0.2);font-style: normal;font-family: Arial, Helvetica, sans-serif;}
     .class5 {color:white;text-align:justify;border: none;padding: 10px; width: 1000px; height: 15px; font-size: 15px; background-color: transparent;font-style: normal;font-family: Arial, Helvetica, sans-serif;}
     .class6 {color:white;text-align:justify;border: none;padding: 10px; width: 1000px; height: 15px; font-size: 15px;  background: transparent;font-style: normal;font-family: Arial, Helvetica, sans-serif;}
-    .class7 {color:white;text-align:center;border: none;padding: 10px; width: 1000px; height: 100px; font-size: 15px;  background-color: grey; background: rgba(255,255,255,0.2);;font-style: normal;font-family: Arial, Helvetica, sans-serif;}
+    .class7 {color:white;text-align:justify;border: none;padding: 10px; width: 1000px; height: 15px; font-size: 15px;  background: transparent;font-style: normal;font-family: Arial, Helvetica, sans-serif;}
 
 </style>
 <!-- Panel Top #library/panel/panel-top-01.html -->
@@ -145,7 +145,7 @@
               <li><a href="#SentAnalyzer" >Sentiment Analyzer</a></li>
               <li><a href="#TechForeaster">Technical Forecaster</a></li>
               <li><a href="#AutoTrader">Automated Trader</a></li>
-              <li><a href="#login" ><button type="submit" class="button blue gradient" name="button">Log in</button></a></li>  <!-- Parker : changed "profile" to "log in" -->
+               <a href=#login id=login><button type="submit" class="button blue gradient" name="button">Log in</button></a>a <!-- Parker : changed "profile" to "log in" -->
           </nav>
       </ul>
     </div>
@@ -176,46 +176,19 @@
               <input type="email" class="input-8 ae-4 fromCenter" name="user-email" placeholder="Email" val=""/>
               <input type="password" class="input-8 ae-5 fromCenter" name="user-password" placeholder="Password" val=""/>
               <input type="password" class="input-8 ae-6 fromCenter" name="confirm-password" placeholder="Confirm the password" val=""/>
-                <a href=#registerr id=register><button type="submit" class="button blue gradient ae-7 fromCenter" name="button">Get Started</button></a>
+                <a href=# id=register><button type="submit" class="button blue gradient ae-7 fromCenter" name="button">Get Started</button></a>
             </form>
-
-
-          </div>
-
-
-
-
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-  <div class="background" style="background-image:url(/static/assets/img/background/img-08.jpg)"></div>
-</section>
-
-
-{#another slide for register page#}
-<section class="slide fade-6 kenBurns"  id="registerr">
-  <div class="content">
-    <div class="container">
-      <div class="wrap">
-        <div class="fix-12-12">
-          <div class="fix-3-12">
-						<img height = "150" class="wide ae-1"  src="{{url_for('static', filename='assets/img/logos/kash.png')}}"/>
-					</div>
-          <div class="margin-top-2">
-
                 <div class="class7">
                 <pre style="white-space: pre-wrap;">
-                    <p  style="font-size:30px; font-family: Arial, Helvetica, sans-serif;" id="outputstr"></p>
+                    <p  style="font-size:15px; font-family: Arial, Helvetica, sans-serif;" id="outputstr"></p>
              </pre>
                </div>
 
 
-
-
           </div>
+
+
+
 
           </div>
         </div>
@@ -225,6 +198,7 @@
 
   <div class="background" style="background-image:url(/static/assets/img/background/img-08.jpg)"></div>
 </section>
+
 
 
 <!--login -->
@@ -243,7 +217,7 @@
               <form class="slides-form" action="#">
                 <input type="email" class="input-8 ae-4 fromCenter" name="login-email" placeholder="Email" val=""/>
               <input type="password" class="input-8 ae-5 fromCenter" name="login-password" placeholder="Password" val=""/>
-                <a  id=login><button type="submit" class="button blue gradient ae-7 fromCenter" name="button">Log in</button></a>
+                <a href=#login id=login><button type="submit" class="button blue gradient ae-7 fromCenter" name="button">Profile</button></a>
               </form>
                 <div class="class1">
                 <pre style="white-space: pre-wrap;">

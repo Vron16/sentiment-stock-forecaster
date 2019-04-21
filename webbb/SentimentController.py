@@ -1,27 +1,44 @@
-from webbb.SentimentCalculator import SentimentCalculator
-from webbb.SentimentPredictor import SentimentPredictor
-from webbb.Webscraper import Webscraper
+from SentimentCalculator import SentimentCalculator
+from SentimentPredictor import SentimentPredictor
+from Webscraper import Webscraper
 import mysql.connector as ms
-import csv
 
 class SentimentController:
     def handleAutoTradeRequest(self, ticker):
+        sentCalculator = SentimentCalculator()
+        webScraper = Webscraper()
+        #sentPredictor = SentimentPredictor()
+
         headlines = self.requestHeadlines(ticker)
         avgScore = self.calcAvgSentScore( headlines)
-        self.updateDB(avgScore)
+        #print('Average Score of all Headlines Analyzed is: ' + str(avgScore))
+        #print(requestPrediction(sentPredictor, avgScore))
+        #self.updateDB(avgScore)
         return avgScore
+        #print sentCalculator.calculate("Microsoft's stock riding 7-day win streak toward another record close")
+        #print sentCalculator.calculate("Alphabet (GOOGL) Dips More Than Broader Markets: What You Should Know")
 
     def finalToUser(self, ticker):
+        sentCalculator = SentimentCalculator()
+        webScraper = Webscraper()
+        sentPredictor = SentimentPredictor()
+
         headlines = self.requestHeadlines(ticker)
         avgScore = self.calcAvgSentScore(headlines)
         k = 'Average Sentiment Score of all Headlines Analyzed is: ' + str(avgScore)
         l = self.requestPrediction(avgScore)
         array = [k, l]
         return array
+        #self.updateDB(avgScore)
+
+        #print sentCalculator.calculate("Microsoft's stock riding 7-day win streak toward another record close")
+        #print sentCalculator.calculate("Alphabet (GOOGL) Dips More Than Broader Markets: What You Should Know")
+
 
     def requestHeadlines(self, ticker):
         webScraperr = Webscraper()
         return webScraperr.getHeadlines(ticker)
+
 
     def printHeadlines(self, headlines):
         h = " "
@@ -29,12 +46,18 @@ class SentimentController:
             h = h + "\n" + "- “" + headlines[i] + '”'
         print(h)
 
+
     def calcAvgSentScore(self, headlines):
         senttCalculator = SentimentCalculator()
         totalScore = 0
         numHeadlines = 0
+        #isValid = 0 #initialized as false/assumes that all headlines get score of 2.0, aka no words from lexicon were in headline
         for headline in headlines:
+            #print(headline)
             score = senttCalculator.calculate(headline)
+            #print(score)
+            #if (score != 2.0):
+                #isValid = 1
             totalScore += score
             numHeadlines += 1
         return (totalScore/numHeadlines)
@@ -44,40 +67,28 @@ class SentimentController:
         senttPredictor = SentimentPredictor()
         return senttPredictor.predict(averageSent)
 
-    def updateDB(sentiment, stockname):
-        cnx = ms.connect(user='root', password='mypassword',
-                     host='mydb.cwtgu3tqnwx8.us-east-2.rds.amazonaws.com',
-                     database='mydb')
 
-        mycursor = cnx.cursor()
-
-        query = "SELECT stock_code FROM stock"
-
-        mycursor.execute(query)
-        result = mycursor.fetchall()
-        print(sentiment)
-        mycursor.execute("UPDATE stock SET sentiment = (%s) WHERE stock_code = (%s)", (sentiment, stockname))
-
-        cnx.commit()
-        #print(stockname)
-
-        cnx.close()
-
-        #for x in result:
-            #print(x)
-
-    def getStockTickers(self):
-        with open("stocksindb.csv", "r") as dbcsvFile:
-            dbTickers = csv.reader(dbcsvFile, dialect='excel', delimiter=',', quotechar='"')
-            tickers = []
-            count = 0
-            for row in dbTickers:
-                if count == 0:
-                    count = count + 1
-                    continue
-                ticker = row[1] + ' (' + row[0] + ')'
-                tickers.append(ticker)
-        return tickers
+    # def updateDB(sentiment, stockname):
+    #     cnx = ms.connect(user='root', password='mypassword',
+    #                  host='mydb.cwtgu3tqnwx8.us-east-2.rds.amazonaws.com',
+    #                  database='mydb')
+    #
+    #     mycursor = cnx.cursor()
+    #
+    #     query = "SELECT stock_code FROM stock"
+    #
+    #     mycursor.execute(query)
+    #     result = mycursor.fetchall()
+    #     print(sentiment)
+    #     mycursor.execute("UPDATE stock SET sentiment = (%s) WHERE stock_code = (%s)", (sentiment, stockname))
+    #
+    #     cnx.commit()
+    #     print(stockname)
+    #
+    #     cnx.close()
+    #
+    #     #for x in result:
+    #         #print(x)
 
 
     # def search_stock_symbol(stock_symbol):
