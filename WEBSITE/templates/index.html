@@ -8,17 +8,25 @@
 
 {#    Search Button for Sentiment Analyzer starts here#}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript">
+            $(function() {
+                $.getJSON('/tickerRequest', function(data) {
+                    console.log(data);
+                    //iterate through this data here and put it into your dropdown html, Andrea
+                });
+            });
+        </script>
 		<script type=text/javascript>
 			$(function() {
 			  $('a#search').bind('click', function() {
 				$.getJSON('/testFunc', {
 				    stockName: $('input[name="stockName"]').val(),
 				}, function(data) {
-				    {#var headlines = '';#}
-				    {#for (var i = 0; i < 5; i++) {#}
-				    {#    var index = 0;#}
-				    {#    index = i + 1;#}
-				    {#    headlines += index + '. ' + data[i] + "\n";#}
+				    //{#var headlines = '';#}
+				    //{#for (var i = 0; i < 5; i++) {#}
+				    //{#    var index = 0;#}
+				    //{#    index = i + 1;#}
+				    //{#    headlines += index + '. ' + data[i] + "\n";#}
 				    var headline1 = data[0][0];
 				    var headline2 = data[0][1];
                     var headline3 = data[0][2];

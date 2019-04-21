@@ -1,11 +1,13 @@
-from flask import Flask, get_template_attribute, render_template, url_for, request, redirect, jsonify
-from SentimentController import SentimentController
 from flask import *
-from SentimentController import SentimentController
-import json
+from WEBSITE.SentimentController import SentimentController
+
 
 app = Flask(__name__)
 
+@app.route('/tickerRequest/', methods=['GET'])
+def dropdown():
+    SentController = SentimentController()
+    return jsonify(SentController.getStockTickers())
 
 @app.route('/testFunc/', methods=['GET', 'POST'])
 def testFunc():
