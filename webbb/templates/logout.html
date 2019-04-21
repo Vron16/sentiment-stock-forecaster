@@ -55,17 +55,19 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<script type=text/javascript>
 			$(function() {
-			  $('a#confirmInf').bind('click', function() {
-				$.getJSON('/addUser', {
-				    useremail: $('input[name="user-email"]').val(),
-                    userpassword : $('input[name="user-password"]').val(),
-                    confirmpassword: $('input[name="confirm-password"]').val(),
+			  $('a#confirmlogin').bind('click', function() {
+				$.getJSON('/login/', {
+				    loginemail: $('input[name="login-email"]').val(),
+                    loginpassword : $('input[name="login-password"]').val(),
 				}, function(data) {
-
-                        var outputstr = data;
-                        $("#outputstr").text(outputstr);
+				    {#var headlines = '';#}
+				    {#for (var i = 0; i < 5; i++) {#}
+				    {#    var index = 0;#}
+				    {#    index = i + 1;#}
+				    {#    headlines += index + '. ' + data[i] + "\n";#}
+                        var loginstr = data;
+                        $("#loginstr").text(loginstr);
 				});
-
 				console.log("Done");
 				return false;
 			  });
@@ -117,9 +119,11 @@
     <div class="left"> <a href="#" title="Slides Framework"><svg style="width:82px;height:24px"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#logo"></use></svg></a></div>
     <div class="right">
       <ul class="menu">
+
+
           <nav>
               <li><a href="#">Home</a></li>
-              <li><a href="#SentAnalyzer" >Amany</a></li>
+              <li><a href="#SentAnalyzer" >Sentiment Analyzer</a></li>
               <li><a href="#TechForeaster">Technical Forecaster</a></li>
               <li><a href="#AutoTrader">Automated Trader</a></li>
               <li><a href="#profile" ><button type="submit" class="button blue gradient" name="button">Profile</button></a></li>
@@ -128,14 +132,17 @@
       </form></li>
           </nav>
       </ul>
+
     </div>
+
   </div>
   <div class="sections compact hidden">
     <div class="left"><a href="#" title="Slides Framework"><svg style="width:82px;height:24px"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#logo"></use></svg></a></div>
     <div class="right"><span class="button actionButton sidebarTrigger" data-sidebar-id="1"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#menu"></use></svg></span></div>
   </div>
 </nav>
-<!-- Slide 1 (#08) -->
+{#slide 1#}
+
 <section class="slide fade-6 kenBurns" >
   <div class="content">
     <div class="container">
@@ -147,19 +154,20 @@
           <p class="hero fix-9-12 margin-top-2 ae-2"><span class="opacity-8">Please Confirm your information</span></p>
           <div class="margin-top-2">
 
-              <form class="slides-form" action ='/addUser/' method="post">
-              <input type="email" class="input-8 ae-4 fromCenter" name="user-email" placeholder="Email" />
-              <input type="password" class="input-8 ae-5 fromCenter" name="user-password" placeholder="Password" />
-              <input type="password" class="input-8 ae-6 fromCenter" name="confirm-password" placeholder="Confirm the password" />
-                <a href=#slide2 id=confirmInf><button type="submit" class="button blue gradient ae-7 fromCenter" name="button">Confirm</button></a>
+              <form class="slides-form" action ='/login/' method="post">
+              <input type="email" class="input-8 ae-4 fromCenter" name="login-email" placeholder="Email" />
+              <input type="password" class="input-8 ae-5 fromCenter" name="login-password" placeholder="Password" />
+                <a href=#slide2 id=confirmlogin><button type="submit" class="button blue gradient ae-7 fromCenter" name="button">Confirm</button></a>
             </form>
           </div>
+
           </div>
         </div>
       </div>
     </div>
   <div class="background" style="background-image:url(/static/assets/img/background/img-08.jpg)"></div>
 </section>
+
 <!-- Slide 1 (#08) -->
 <section class="slide fade-6 kenBurns" id="slide2">
   <div class="content">
@@ -171,12 +179,10 @@
 					</div>
             <div class="class7">
                 <pre style="white-space: pre-wrap;">
-                    <p  style="font-size:30px; font-family: Arial, Helvetica, sans-serif;" id="outputstr"></p>
+                    <p  style="font-size:30px; font-family: Arial, Helvetica, sans-serif;" id="loginstr"></p>
              </pre>
                </div>
-          <div class="margin-top-2">
 
-          </div>
           </div>
         </div>
       </div>
@@ -194,12 +200,9 @@
             <img height = "150" width = "300" class="wide ae-1"  src="{{url_for('static', filename='assets/img/logos/kash.png')}}"/>
           </div>
           <div class="margin-top-0">
-              <p class="ae-3"><span class="opacity-8">Login and  <b> Check it out!</b> </span></p>
+              <p class="ae-3"><span class="opacity-8"> <b> </b> </span></p>
           </div>
             <div class="margin-top-0">
-{#              <form class="slides-form" action ='/logout/' method="post">#}
-{#                <a  id=logout><button type="submit" class="button blue gradient ae-7 fromCenter" name="button">Log Out</button></a>#}
-{#              </form>#}
 
           </div>
         </div>

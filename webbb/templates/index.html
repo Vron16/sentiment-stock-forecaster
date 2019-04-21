@@ -1,5 +1,3 @@
-
-
 <!doctype html>
 
 <html>
@@ -14,11 +12,7 @@
 				$.getJSON('/testFunc', {
 				    stockName: $('input[name="stockName"]').val(),
 				}, function(data) {
-				    {#var headlines = '';#}
-				    {#for (var i = 0; i < 5; i++) {#}
-				    {#    var index = 0;#}
-				    {#    index = i + 1;#}
-				    {#    headlines += index + '. ' + data[i] + "\n";#}
+
 				    var headline1 = data[0][0];
 				    var headline2 = data[0][1];
                     var headline3 = data[0][2];
@@ -26,74 +20,39 @@
 				    var headline5 = data[0][4];
                     var avgScore = data[1][0];
                     var prediction = data[1][1];
-
 				    $("#headlineDisplay").text("Top five news headlines:" + "\n" + "1- " + headline1 + ". " + "\n"
                         + "2- " + headline2 + "." + "\n" + "3- " + headline3 + "." + "\n"
                         + "4- " + headline4 + "." + "\n" + "5- " + headline5 + "." + "\n") ;
 				    $("#avgScore").text(avgScore + "." + "\n" );
                     $("#prediction").text(prediction);
 				});
-
 				console.log("Done");
 				return false;
 			  });
 			});
 		</script>
-{#        Search Button for Sentiment Analyzer ends here#}
 
 
-{#    Register Button for Account starts here#}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<script type=text/javascript>
 			$(function() {
 			  $('a#register').bind('click', function() {
-				$.getJSON('/addUser', {
-				    useremail: $('input[name="user-email"]').val(),
-                    userpassword : $('input[name="user-password"]').val(),
-                    confirmpassword: $('input[name="confirm-password"]').val(),
-				}, function(data) {
-				    {#var headlines = '';#}
-				    {#for (var i = 0; i < 5; i++) {#}
-				    {#    var index = 0;#}
-				    {#    index = i + 1;#}
-				    {#    headlines += index + '. ' + data[i] + "\n";#}
-                        var outputstr = data;
-                        $("#outputstr").text(outputstr);
+			      $.get("/loginn/");
+
 				});
-
-				console.log("Done");
-				return false;
 			  });
-			});
 		</script>
-{#        Register Button for Account ends here#}
 
-    {#    login Button for Account starts here#}
+
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<script type=text/javascript>
 			$(function() {
 			  $('a#login').bind('click', function() {
-				$.getJSON('/login', {
-				    loginemail: $('input[name="login-email"]').val(),
-                    loginpassword : $('input[name="login-password"]').val(),
+			      $.get("/loginb/");
 
-				}, function(data) {
-				    {#var headlines = '';#}
-				    {#for (var i = 0; i < 5; i++) {#}
-				    {#    var index = 0;#}
-				    {#    index = i + 1;#}
-				    {#    headlines += index + '. ' + data[i] + "\n";#}
-                        var loginstr = data;
-                        $("#loginstr").text(loginstr);
 				});
-
-				console.log("Done");
-				return false;
 			  });
-			});
 		</script>
-{#        login Button for Account ends here#}
-
 
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, viewport-fit=cover">
@@ -118,13 +77,11 @@
 	<script src= "{{url_for('static', filename='js/slides.min.js')}}" type="text/javascript"></script>
 <!-- Custom Scripts -->
 <!-- <script src="js/custom.js" type="text/javascript"></script> -->
-
 <!-- Fonts and Material Icons -->
 	<link rel="stylesheet" as="font" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,600,700|Material+Icons"/>
 	<!-- For demousers scripts and styles -->
 	</head>
 <body class="slides smoothScroll noPreload animated">
-
 <style>
     .class1 {color:white;text-align:justify;border: none;padding: 10px; width: 1000px; height: 190px; font-size: 15px; background-color: grey; background: rgba(255,255,255,0.2);font-style: normal; font-family: Arial, Helvetica, sans-serif;}
     .class2 {color:white;text-align:justify;border: none;padding: 10px; width: 1000px; height: 70px; font-size: 15px; background-color: grey; background: rgba(255,255,255,0.2);font-style: normal;font-family: Arial, Helvetica, sans-serif;}
@@ -132,7 +89,6 @@
     .class5 {color:white;text-align:justify;border: none;padding: 10px; width: 1000px; height: 15px; font-size: 15px; background-color: transparent;font-style: normal;font-family: Arial, Helvetica, sans-serif;}
     .class6 {color:white;text-align:justify;border: none;padding: 10px; width: 1000px; height: 15px; font-size: 15px;  background: transparent;font-style: normal;font-family: Arial, Helvetica, sans-serif;}
     .class7 {color:white;text-align:center;border: none;padding: 10px; width: 1000px; height: 100px; font-size: 15px;  background-color: grey; background: rgba(255,255,255,0.2);;font-style: normal;font-family: Arial, Helvetica, sans-serif;}
-
 </style>
 <!-- Panel Top #library/panel/panel-top-01.html -->
 <nav class="panel top  ">
@@ -145,7 +101,7 @@
               <li><a href="#SentAnalyzer" >Sentiment Analyzer</a></li>
               <li><a href="#TechForeaster">Technical Forecaster</a></li>
               <li><a href="#AutoTrader">Automated Trader</a></li>
-              <li><a href="#login" ><button type="submit" class="button blue gradient" name="button">Log in</button></a></li>  <!-- Parker : changed "profile" to "log in" -->
+              <li><a href="#LOGIN" ><button type="submit" class="button blue gradient" name="button">Log in</button></a></li>  <!-- Parker : changed "profile" to "log in" -->
           </nav>
       </ul>
     </div>
@@ -155,10 +111,6 @@
     <div class="right"><span class="button actionButton sidebarTrigger" data-sidebar-id="1"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#menu"></use></svg></span></div>
   </div>
 </nav>
-
-
-
-
 
 <!-- Slide 1 (#08) -->
 <section class="slide fade-6 kenBurns" >
@@ -172,63 +124,22 @@
           <p class="hero fix-9-12 margin-top-2 ae-2"><span class="opacity-8">Earn some cash today with our Automated Stock Trader!</span></p>
           <div class="margin-top-2">
             <p class="ae-3"><span class="opacity-8">Start now and get <b>trading</b>!</span></p>
-            <form class="slides-form" action="#">
+            <form class="slides-form" action ='/loginn/' method="post">
               <input type="email" class="input-8 ae-4 fromCenter" name="user-email" placeholder="Email" val=""/>
               <input type="password" class="input-8 ae-5 fromCenter" name="user-password" placeholder="Password" val=""/>
               <input type="password" class="input-8 ae-6 fromCenter" name="confirm-password" placeholder="Confirm the password" val=""/>
-                <a href=#registerr id=register><button type="submit" class="button blue gradient ae-7 fromCenter" name="button">Get Started</button></a>
+                <a href="" id=register><button type="submit" class="button blue gradient ae-7 fromCenter" name="button">Get Started</button></a>
             </form>
-
-
           </div>
-
-
-
-
           </div>
         </div>
-
       </div>
     </div>
-
   <div class="background" style="background-image:url(/static/assets/img/background/img-08.jpg)"></div>
 </section>
-
-
-{#another slide for register page#}
-<section class="slide fade-6 kenBurns"  id="registerr">
-  <div class="content">
-    <div class="container">
-      <div class="wrap">
-        <div class="fix-12-12">
-          <div class="fix-3-12">
-						<img height = "150" class="wide ae-1"  src="{{url_for('static', filename='assets/img/logos/kash.png')}}"/>
-					</div>
-          <div class="margin-top-2">
-
-                <div class="class7">
-                <pre style="white-space: pre-wrap;">
-                    <p  style="font-size:30px; font-family: Arial, Helvetica, sans-serif;" id="outputstr"></p>
-             </pre>
-               </div>
-
-
-
-
-          </div>
-
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-  <div class="background" style="background-image:url(/static/assets/img/background/img-08.jpg)"></div>
-</section>
-
 
 <!--login -->
-<section id="login" class="slide fade-6 kenBurns">
+<section id="LOGIN" class="slide fade-6 kenBurns">
   <div class="content">
     <div class="container">
       <div class="wrap">
@@ -240,33 +151,20 @@
               <p class="ae-3"><span class="opacity-8">Login and  <b> Check it out!</b> </span></p>
           </div>
             <div class="margin-top-0">
-              <form class="slides-form" action="#">
+              <form class="slides-form" action ='/loginb/' method="post">
                 <input type="email" class="input-8 ae-4 fromCenter" name="login-email" placeholder="Email" val=""/>
               <input type="password" class="input-8 ae-5 fromCenter" name="login-password" placeholder="Password" val=""/>
-                <a  id=login><button type="submit" class="button blue gradient ae-7 fromCenter" name="button">Log in</button></a>
+                <a  href = "" id=login><button type="submit" class="button blue gradient ae-7 fromCenter" name="button">Log in</button></a>
               </form>
-                <div class="class1">
-                <pre style="white-space: pre-wrap;">
-              <p  style="font-size:15px; font-family: Arial, Helvetica, sans-serif;" id="loginstr"></p>
-             </pre>
-          </div>
+
           </div>
         </div>
-
         </div>
       </div>
     </div>
       <div class="background" style="background-image:url(/static/assets/img/background/img-08.jpg)"></div>
   </div>
-
 </section>
-
-
-
-
-
-
-
 <!-- Slide 2 (#08) Sentiment -->
 <section id="SentAnalyzer" class="slide fade-6 kenBurns">
   <div class="content">
@@ -288,17 +186,12 @@
               </form>
           </div>
         </div>
-
         </div>
       </div>
     </div>
   </div>
-
   <div class="background" style="background-image:url(/static/assets/img/background/img-08.jpg)"></div>
 </section>
-
-
-
 <!-- Slide 2 without the search bar(#08) -->
 <section id="SentttAnalyzer" class="slide fade-6 kenBurns">
   <div class="content">
@@ -308,47 +201,36 @@
           <div class="fix-3-12">
             <img height = "150" width = "300" class="wide ae-1"  src="{{url_for('static', filename='assets/img/logos/sentiment.png')}}"/>
           </div>
-
-
                 <div class="class1">
                 <pre style="white-space: pre-wrap;">
               <p  style="font-size:15px; font-family: Arial, Helvetica, sans-serif;" id="headlineDisplay"></p>
              </pre>
           </div>
-
         <div class="class5">
           </div>
-
             <div class="class2">
                 <pre style="white-space: pre-wrap;">
                     <p  style="font-size:15px; font-family: Arial, Helvetica, sans-serif;" id="avgScore"></p>
              </pre>
           </div>
-
         <div class="class6">
           </div>
-
             <div class="class3">
                 <pre style="white-space: pre-wrap;">
                     <p  style="font-size:15px; font-family: Arial, Helvetica, sans-serif;" id="prediction"></p>
              </pre>
           </div>
-
-
         </div>
       </div>
     </div>
   </div>
   <div class="background" style="background-image:url(/static/assets/img/background/img-08.jpg)"></div>
 </section>
-
-
 <!-- Slide 3 (#08) Foreccaster-->
 <section id="TechForeaster" class="slide fade-6 kenBurns">
   <div class="content">
     <div class="container">
       <div class="wrap">
-
         <div class="fix-12-12">
           <div class="fix-3-12">
             <img height = "200" width = "400" class="wide ae-1"  src="{{url_for('static', filename='assets/img/logos/forecaster.png')}}"/>
@@ -363,7 +245,6 @@
   </div>
   <div class="background" style="background-image:url(/static/assets/img/background/img-08.jpg)"></div>
 </section>
-
 <!-- Slide 4 AutoTrader(#08) -->
 <section id="AutoTrader" class="slide fade-6 kenBurns">
   <div class="content">
@@ -382,7 +263,6 @@
     </div>
   </div>
   <div class="background" style="background-image:url(/static/assets/img/background/img-08.jpg)"></div>
-
 </section>
 <!-- Panel Bottom #03 -->
 <nav class="panel bottom   forceMobileView">
@@ -390,6 +270,5 @@
     <div class="center"><span class="opacity-8 semiBold">Sentiment Analyzer  •  Technical Forecaster  •  Automated Trader</span></div>
   </div>
 </nav>
-
 </body>
 </html>
