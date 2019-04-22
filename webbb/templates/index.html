@@ -167,6 +167,7 @@
       <ul class="menu">
           <nav>
               <li><a href="#">Home</a></li>
+              <li><a href="#InfoPage" >About Us</a></li>
               <li><a href="#SentAnalyzer" >Sentiment Analyzer</a></li>
               <li><a href="#TechForeaster">Technical Forecaster</a></li>
               <li><a href="#AutoTrader">Automated Trader</a></li>
@@ -204,6 +205,78 @@
         </div>
       </div>
     </div>
+  <div class="background" style="background-image:url(/static/assets/img/background/img-08.jpg)"></div>
+</section>
+
+<section id="InfoPage" class="slide fade-6 kenBurns">
+
+    <style>
+* {
+  box-sizing: border-box;
+}
+
+/* Create three equal columns that floats next to each other */
+.column {
+  display: inline-block;
+  width: 400px;
+  height: 200px;
+  background-color: rgba(192,192,192,0.3);
+  margin-top: 25%;
+  padding: 10px;
+  height: 750px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+</style>
+
+  <div class="content">
+    <div class="container">
+      <div class="wrap">
+
+        <div class="fix-12-12">
+          <div class="fix-3-12">
+                <img height = "150" width = "300" class="wide ae-1"  src="{{url_for('static', filename='assets/img/logos/plswork.png')}}"/>
+          </div>
+
+          <div class="margin-top-2">
+              <p class="ae-3"><span class="opacity-8"><b>KA$H</b> stands for <b>K</b>nowledgable <b>A</b>utomated <b>S</b>tock <b>H</b>andler</span></p>
+            <p class="ae-3"><span class="opacity-8">We hope to provide accurate predictions so that our customers can make the best trades.</span></p>
+          </div>
+            <p class="hero fix-9-12 margin-top-2 ae-2"><span class="opacity-8"><b>Scroll down to see how we do it.</b></span></p>
+        </div>
+
+
+
+          <!--START OF: Descriptions about each function-->
+          <div class="row">
+              <div class="column">
+                <h2>Sentiment Analyzer</h2>
+                  <p>Not only do we provide top headlines of a particular stock, we also provide a prediction on price trends on a stock of your choosing. This, in turn, can give you a piece of information to take into account when handling stocks.</p>
+                  <p><strong>First</strong>, you <em>must</em> type in the stock you're interested in. <strong>Next</strong>, in the backend, we use a <em>webscraper</em> to grab headlines about your stock. <strong>Finally</strong>, we calculate a <em>sentiment score</em> from the headlines--this score indicates whether the <em>price trend</em> of your stock is strong, weak, or stagnant. </p>
+                  <p><a href=#SentAnalyzer><b>Check it out!</b></a></p>
+              </div>
+              <div class="column">
+                <h2>Technical Forecaster</h2>
+                  <p>Rate of change measures the rate of change in 5 day increments and returns an unbounded percentage. <strong>Stochastic Oscillator</strong> measured the <em>likelihood</em> that a stock will <em>fluctuate</em> and returns a percentage from 0 to 100%. <strong>ASI</strong> measured the <em>volatility</em> and <em>long term trend</em> of a stock and returns a percentage from -100 to 100%</p>
+                  <p><strong>ARIMA</strong> predicts the <em>short term stock price</em> by fitting the past prices to a polynomial function. <strong>Fourier</strong> predicts the <em>long term stock prices</em> by fitting them to a periodic function.</p>
+                  <p><a href=#TechForeaster><b>Check it out!</b></a></p>
+              </div>
+              <div class="column">
+                <h2>Automated Trader</h2>
+                  <p>The AutoTrader <em>combines</em> sentiment and real time price predictions to generate smart trading decisions for the stocks of interest, all while employing a <em>neural network</em> to help the user make a profit.</p>
+                  <p>The users <strong>input the stocks</strong> they would like to trade in, the <strong>duration of the trading session</strong> and click “Run” for trading to start. After trading session ends, users <em>receive</em> a message with current updated balance, how many stocks owned and what companies are present in <strong>portfolio</strong>.</p>
+                  <p><a href=#AutoTrader><b>Check it out!</b></a></p>
+              </div>
+          </div>
+          <!--END OF: Descriptions about each function-->
+      </div>
+    </div>
+  </div>
   <div class="background" style="background-image:url(/static/assets/img/background/img-08.jpg)"></div>
 </section>
 
