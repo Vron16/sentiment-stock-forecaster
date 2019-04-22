@@ -3,7 +3,6 @@
 <html>
 <head>
 
-
 {#    Search Button for Sentiment Analyzer starts here#}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<script type=text/javascript>
@@ -12,11 +11,6 @@
 				$.getJSON('/testFunc', {
 				    stockName: $('input[name="stockName"]').val(),
 				}, function(data) {
-				    {#var headlines = '';#}
-				    {#for (var i = 0; i < 5; i++) {#}
-				    {#    var index = 0;#}
-				    {#    index = i + 1;#}
-				    {#    headlines += index + '. ' + data[i] + "\n";#}
 				    var headline1 = data[0][0];
 				    var headline2 = data[0][1];
                     var headline3 = data[0][2];
@@ -36,31 +30,43 @@
 			});
 		</script>
 
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script type=text/javascript>
+			$(function() {
+			  $('a#logout').bind('click', function() {
+				$.get("/logout/");
+
+
+				});
+			});
+		</script>
+
+
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<script type=text/javascript>
 			$(function() {
-			  $('a#register').bind('click', function() {
-			      $.get("/loginn/");
-
+			  $('a#confirmlogin').bind('click', function() {
+				$.getJSON('/login/', {
+				    loginemail: $('input[name="login-email"]').val(),
+                    loginpassword : $('input[name="login-password"]').val(),
+				}, function(data) {
+				    {#var headlines = '';#}
+				    {#for (var i = 0; i < 5; i++) {#}
+				    {#    var index = 0;#}
+				    {#    index = i + 1;#}
+				    {#    headlines += index + '. ' + data[i] + "\n";#}
+                        var loginstr = data;
+                        $("#loginstr").text(loginstr);
 				});
+				console.log("Done");
+				return false;
 			  });
+			});
 		</script>
 
+	
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-		<script type=text/javascript>
-			$(function() {
-			  $('a#login').bind('click', function() {
-			      $.get("/loginb/");
-
-				});
-			  });
-		</script>
-	
-	
-	
-	
 {#  Search Button for Tech Forecaster starts here#}
 
     <script type=text/javascript>
@@ -77,7 +83,7 @@
                   $("#techImage").attr("src", "{{url_for('static', filename='assets/img/logos/default.png')}}");
                    return false;
             }
-
+	
             $("#techImage").attr("src", "{{url_for('static', filename='assets/img/a.jpg')}}" + "?" + new Date().getTime());
 
             singlePredictions = "Rate of Change: measures the rate of change in 5 day increments\n";
@@ -106,8 +112,8 @@
             $("#techPredictions").text(singlePredictions);
 
             weightedPredictions = data[8] + " current price: " + curPrice + "\n";
-            weightedPredictions += "In the near future, the predicted stock price is: " + data[4].toFixed(2) + "\n";
-            weightedPredictions += "In the farther future, the predicted stock price is: " + data[5].toFixed(2);
+            weightedPredictions += "In the near future, the predicted stock price is: " + data[6].toFixed(2) + "\n";
+            weightedPredictions += "In the farther future, the predicted stock price is: " + data[7].toFixed(2);
 
             $("#weightedPredictions").text(weightedPredictions);
 
@@ -118,6 +124,9 @@
         });
       });
     </script>
+
+
+
 
 
 	<meta charset="UTF-8">
@@ -158,6 +167,7 @@
 
     .classTech1 {color:white;text-align:justify;border: none;padding: 10px; width: 650px; height: 120px; font-size: 15px; background-color: grey; background: rgba(255,255,255,0.2);font-style: normal;font-family: Arial, Helvetica, sans-serif;}
     .classTech2 {color:white;text-align:justify;border: none;padding: 10px; width: 650px; height: 200px; font-size: 15px; background-color: grey; background: rgba(255,255,255,0.2);font-style: normal; font-family: Arial, Helvetica, sans-serif;}
+
 </style>
 <!-- Panel Top #library/panel/panel-top-01.html -->
 <nav class="panel top  ">
@@ -165,23 +175,30 @@
     <div class="left"> <a href="#" title="Slides Framework"><svg style="width:82px;height:24px"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#logo"></use></svg></a></div>
     <div class="right">
       <ul class="menu">
+
+
           <nav>
               <li><a href="#">Home</a></li>
               <li><a href="#SentAnalyzer" >Sentiment Analyzer</a></li>
               <li><a href="#TechForeaster">Technical Forecaster</a></li>
               <li><a href="#AutoTrader">Automated Trader</a></li>
-              <li><a href="#LOGIN" ><button type="submit" class="button blue gradient" name="button">Log in</button></a></li>  <!-- Parker : changed "profile" to "log in" -->
+              <li><a href="#profile" ><button type="submit" class="button blue gradient" name="button">Profile</button></a></li>
+              <li><form action ='/logout/' method="post">
+          <a  id=logout><button type="submit" class="button blue gradient" name="button">Log Out</button></a>
+      </form></li>
           </nav>
       </ul>
+
     </div>
+
   </div>
   <div class="sections compact hidden">
     <div class="left"><a href="#" title="Slides Framework"><svg style="width:82px;height:24px"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#logo"></use></svg></a></div>
     <div class="right"><span class="button actionButton sidebarTrigger" data-sidebar-id="1"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#menu"></use></svg></span></div>
   </div>
 </nav>
+{#slide 1#}
 
-<!-- Slide 1 (#08) -->
 <section class="slide fade-6 kenBurns" >
   <div class="content">
     <div class="container">
@@ -190,16 +207,16 @@
           <div class="fix-3-12">
 						<img height = "150" class="wide ae-1"  src="{{url_for('static', filename='assets/img/logos/kash.png')}}"/>
 					</div>
-          <p class="hero fix-9-12 margin-top-2 ae-2"><span class="opacity-8">Earn some cash today with our Automated Stock Trader!</span></p>
+          <p class="hero fix-9-12 margin-top-2 ae-2"><span class="opacity-8">Please Confirm your information</span></p>
           <div class="margin-top-2">
-            <p class="ae-3"><span class="opacity-8">Start now and get <b>trading</b>!</span></p>
-            <form class="slides-form" action ='/loginn/' method="post">
-              <input type="email" class="input-8 ae-4 fromCenter" name="user-email" placeholder="Email" val=""/>
-              <input type="password" class="input-8 ae-5 fromCenter" name="user-password" placeholder="Password" val=""/>
-              <input type="password" class="input-8 ae-6 fromCenter" name="confirm-password" placeholder="Confirm the password" val=""/>
-                <a href="" id=register><button type="submit" class="button blue gradient ae-7 fromCenter" name="button">Get Started</button></a>
+
+              <form class="slides-form" action ='/login/' method="post">
+              <input type="email" class="input-8 ae-4 fromCenter" name="login-email" placeholder="Email" />
+              <input type="password" class="input-8 ae-5 fromCenter" name="login-password" placeholder="Password" />
+                <a href=#slide2 id=confirmlogin><button type="submit" class="button blue gradient ae-7 fromCenter" name="button">Confirm</button></a>
             </form>
           </div>
+
           </div>
         </div>
       </div>
@@ -207,8 +224,30 @@
   <div class="background" style="background-image:url(/static/assets/img/background/img-08.jpg)"></div>
 </section>
 
-<!--login -->
-<section id="LOGIN" class="slide fade-6 kenBurns">
+<!-- Slide 1 (#08) -->
+<section class="slide fade-6 kenBurns" id="slide2">
+  <div class="content">
+    <div class="container">
+      <div class="wrap">
+        <div class="fix-12-12">
+          <div class="fix-3-12">
+						<img height = "150" class="wide ae-1"  src="{{url_for('static', filename='assets/img/logos/kash.png')}}"/>
+					</div>
+            <div class="class7">
+                <pre style="white-space: pre-wrap;">
+                    <p  style="font-size:30px; font-family: Arial, Helvetica, sans-serif;" id="loginstr"></p>
+             </pre>
+               </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="background" style="background-image:url(/static/assets/img/background/img-08.jpg)"></div>
+</section>
+
+<!--PROFILE TAB FORMAT LATER-->
+<section id="profile" class="slide fade-6 kenBurns">
   <div class="content">
     <div class="container">
       <div class="wrap">
@@ -217,14 +256,9 @@
             <img height = "150" width = "300" class="wide ae-1"  src="{{url_for('static', filename='assets/img/logos/kash.png')}}"/>
           </div>
           <div class="margin-top-0">
-              <p class="ae-3"><span class="opacity-8">Login and  <b> Check it out!</b> </span></p>
+              <p class="ae-3"><span class="opacity-8"> <b> </b> </span></p>
           </div>
             <div class="margin-top-0">
-              <form class="slides-form" action ='/loginb/' method="post">
-                <input type="email" class="input-8 ae-4 fromCenter" name="login-email" placeholder="Email" val=""/>
-              <input type="password" class="input-8 ae-5 fromCenter" name="login-password" placeholder="Password" val=""/>
-                <a  href = "" id=login><button type="submit" class="button blue gradient ae-7 fromCenter" name="button">Log in</button></a>
-              </form>
 
           </div>
         </div>
@@ -232,7 +266,6 @@
       </div>
     </div>
       <div class="background" style="background-image:url(/static/assets/img/background/img-08.jpg)"></div>
-  </div>
 </section>
 <!-- Slide 2 (#08) Sentiment -->
 <section id="SentAnalyzer" class="slide fade-6 kenBurns">
@@ -255,6 +288,40 @@
               </form>
           </div>
         </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="background" style="background-image:url(/static/assets/img/background/img-08.jpg)"></div>
+</section>
+<!-- Slide 2 without the search bar(#08) -->
+<section id="SentttAnalyzer" class="slide fade-6 kenBurns">
+  <div class="content">
+    <div class="container">
+      <div class="wrap">
+        <div class="fix-12-12">
+          <div class="fix-3-12">
+            <img height = "150" width = "300" class="wide ae-1"  src="{{url_for('static', filename='assets/img/logos/sentiment.png')}}"/>
+          </div>
+                <div class="class1">
+                <pre style="white-space: pre-wrap;">
+              <p  style="font-size:15px; font-family: Arial, Helvetica, sans-serif;" id="headlineDisplay"></p>
+             </pre>
+          </div>
+        <div class="class5">
+          </div>
+            <div class="class2">
+                <pre style="white-space: pre-wrap;">
+                    <p  style="font-size:15px; font-family: Arial, Helvetica, sans-serif;" id="avgScore"></p>
+             </pre>
+          </div>
+        <div class="class6">
+          </div>
+            <div class="class3">
+                <pre style="white-space: pre-wrap;">
+                    <p  style="font-size:15px; font-family: Arial, Helvetica, sans-serif;" id="prediction"></p>
+             </pre>
+          </div>
         </div>
       </div>
     </div>
@@ -326,9 +393,7 @@
   <div class="background" style="background-image:url(/static/assets/img/background/img-08.jpg)"></div>
 </section>
 
-
-
-<!-- Slide 4 AutoTrader(#08) -->
+<!-- Slide 5 AutoTrader(#08) -->
 <section id="AutoTrader" class="slide fade-6 kenBurns">
   <div class="content">
     <div class="container">
