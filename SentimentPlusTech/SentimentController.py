@@ -3,8 +3,35 @@ from SentimentPredictor import SentimentPredictor
 from Webscraper import Webscraper
 import mysql.connector as ms
 import csv
+import matplotlib.pyplot as plt
+
 
 class SentimentController:
+
+    def trend(self, ticker):
+        headlines5 = self.requestHeadlines(ticker)
+        headlines20 = self.requestHeadlines20(ticker)
+        headlines30 = self.requestHeadlines30(ticker)
+        avgScore5 = self.calcAvgSentScore(headlines5)
+        avgScore20 = self.calcAvgSentScore(headlines20)
+        avgScore30 = self.calcAvgSentScore(headlines30)
+        x = [5, 20, 30]
+        y = [avgScore5, avgScore20, avgScore30]
+        plt.plot(x, y)
+        plt.xlabel('Time in days')
+        plt.ylabel('Sentiment score')
+        plt.title('Sentiment Trend!')
+
+        plt.tight_layout()
+        plt.savefig('static/assets/img/testplot.png')
+
+
+        # im = Image.open("static/assets/img/testplot.png")
+        # rgb_im = im.convert('RGB')
+        # rgb_im.save('static/assets/img/testplot.jpg')
+        plt.clf()
+        return
+
     def handleAutoTradeRequest(self, ticker):
         headlines = self.requestHeadlines(ticker)
         avgScore = self.calcAvgSentScore( headlines)
@@ -22,6 +49,14 @@ class SentimentController:
     def requestHeadlines(self, ticker):
         webScraperr = Webscraper()
         return webScraperr.getHeadlines(ticker)
+
+    def requestHeadlines20(self, ticker):
+        webScraperr = Webscraper()
+        return webScraperr.getHeadlines20(ticker)
+
+    def requestHeadlines30(self, ticker):
+        webScraperr = Webscraper()
+        return webScraperr.getHeadlines30(ticker)
 
     def printHeadlines(self, headlines):
         h = " "

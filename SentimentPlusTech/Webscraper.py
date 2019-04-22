@@ -24,5 +24,29 @@ class Webscraper:
         #with open('googletest.json', 'w') as outfile:
             #json.dump(self.response, outfile)
 
+    def getHeadlines20(self, ticker):
+        self.url = ('https://newsapi.org/v2/everything?'
+                'q=' + ticker + '&'
+                'from=' + str(date.today() + timedelta(days=-20)) + '&'
+                'sortBy=popularity&'
+                'apiKey=22d271b54d1845858fbddf96cb9d20d2')
+
+        self.response = requests.get(self.url).json()
+        for article in self.response["articles"]:
+            self.headlines.append(article["title"])
+        return self.headlines
+
+    def getHeadlines30(self, ticker):
+        self.url = ('https://newsapi.org/v2/everything?'
+                'q=' + ticker + '&'
+                'from=' + str(date.today() + timedelta(days=-30)) + '&'
+                'sortBy=popularity&'
+                'apiKey=22d271b54d1845858fbddf96cb9d20d2')
+
+        self.response = requests.get(self.url).json()
+        for article in self.response["articles"]:
+            self.headlines.append(article["title"])
+        return self.headlines
+
 
 #print (response.json)

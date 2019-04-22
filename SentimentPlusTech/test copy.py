@@ -106,6 +106,7 @@ def testFunc():
     #for headlineDeviation in sortedHeadlineDeviations:
      #   sortedHeadlines.append(headlineDeviation[0])
     #print(sortedHeadlines)
+    SentController.trend(userInput)
     k = testFunc1(parsedHeadlines)
     array = [parsedHeadlines, k]
     return jsonify(array)
