@@ -44,7 +44,7 @@ def graph_data(time_stamps, stock_data, stock_name):
     if prediction >= latest[-1]:
         plt.plot(102, prediction, 'g+', linestyle='dashed')
     else:
-        plt.plot(102, prediction, 'r-', linestyle='dashed')
+        plt.plot(102, prediction, 'rx', linestyle='dashed')
 
     plt.xticks(ticks[::20], ts[::20], rotation=45)
     plt.grid(color='k', linestyle='--', linewidth=1, axis='x')
@@ -52,7 +52,8 @@ def graph_data(time_stamps, stock_data, stock_name):
     plt.ylabel('Price')
     plt.title(stock_name)
     plt.tight_layout()
-    plt.savefig('static/a.jpg')
+    plt.savefig('static/assets/img/a.jpg')
+    plt.clf()
     return
 
 
@@ -64,6 +65,8 @@ def getPrediction(stock_name):
         print("Please enter another stock.")
         return []
     roc = mm.getRateOfChange(stock_data)  # array
+    if not roc:
+        roc = [0];
     stoch_os = mm.getStochasticOscillator(stock_data)  # array
     asi = mm.getASI(stock_data)  # array
     curPrice = mm.getCurPrice(stock_data[4])
@@ -80,4 +83,4 @@ def getPrediction(stock_name):
     data.append(prediction[0])
     graph_data(stock_data[0], data, stock_name)
 
-    return [roc[0], stoch_os[0], asi[0], curPrice, arima_prediction, fourier_prediction[0], prediction[0], prediction[1]]
+    return [roc[0], stoch_os[0], asi[0], curPrice, arima_prediction, fourier_prediction[0], prediction[0], prediction[1], stock_name]

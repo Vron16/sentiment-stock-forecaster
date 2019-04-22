@@ -322,21 +322,5 @@ def aggregatePrediction(roc, stoch_os, asi, curPrice, arima_prediction, fourier_
     print("Unweighted ARIMA Prediction: ", arima_prediction)
     print("Unweighted Fourier Predictions: ", fourier_prediction)
 
-    weight_ar = arima_prediction
-    weight_four = fourier_prediction[0]
-
-    weight_ar = weight_ar + 0.1*roc[0]
-    weight_four = weight_four + 0.1 * roc[0]
-
-    if stoch_os[0] > 50:
-        weight_ar = weight_ar - 0.1
-        weight_four = weight_four - 0.1
-
-    weight_ar = weight_ar + 0.1 * asi[0]
-    weight_four = weight_four + 0.1 * asi[0]
-
-    print("Weighted ARIMA Prediction: ", weight_ar)
-    print("Weighted Fourier Prediction: ", weight_four)
-
-    return [weight_ar, weight_four]
+    return [arima_prediction, fourier_prediction]
 
