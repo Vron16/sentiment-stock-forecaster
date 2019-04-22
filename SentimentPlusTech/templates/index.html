@@ -29,11 +29,9 @@
         $.getJSON('/testFunc', {
             stockName: $('input[name="stockName"]').val(),
         }, function(data) {
-            //{#var headlines = '';#}
-            //{#for (var i = 0; i < 5; i++) {#}
-            //{#    var index = 0;#}
-            //{#    index = i + 1;#}
-            //{#    headlines += index + '. ' + data[i] + "\n";#}
+
+            $("#trend").attr("src", "{{ url_for('static', filename='assets/img/testplot.png')}}"+ "?" + new Date().getTime());
+
             if (!Array.isArray(data)) {
               $("#headlineDisplay").text(data);
               $("#avgScore").text("");
@@ -361,8 +359,9 @@
 
         <div class="class5">
           </div>
-            <div >
-                <img id="#trend" align="right" height="170" width = "450" refresh=True src="{{url_for('static', filename='assets/img/testplot.png')}} " onerror="{{url_for('static', filename='assets/img/logos/default.png')}}"/>
+            <div>
+                <img id="trend" align="right" height ="180" width = "450" refresh=True src="{{url_for('static', filename='assets/img/tickerpng.png')}} "/>
+
             </div>
             <div class="class2">
                 <pre style="white-space: pre-wrap;">

@@ -83,6 +83,8 @@
         $.getJSON('/testFunc', {
             stockName: $('input[name="stockName"]').val(),
         }, function(data) {
+            $("#trend").attr("src", "{{ url_for('static', filename='assets/img/testplot.png')}}"+ "?" + new Date().getTime());
+
             //{#var headlines = '';#}
             //{#for (var i = 0; i < 5; i++) {#}
             //{#    var index = 0;#}
@@ -396,6 +398,10 @@
           </div>
         <div class="class5">
           </div>
+            <div>
+                <img id="trend" align="right" height ="180" width = "450" refresh=True src="{{url_for('static', filename='assets/img/tickerpng.png')}} "/>
+
+            </div>
             <div class="class2">
                 <pre style="white-space: pre-wrap;">
                     <p  style="font-size:15px; font-family: Arial, Helvetica, sans-serif;" id="avgScore"></p>
