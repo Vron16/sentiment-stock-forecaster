@@ -65,7 +65,6 @@
 			});
 		</script>
 
-	
 
 {#  Search Button for Tech Forecaster starts here#}
 
@@ -83,7 +82,8 @@
                   $("#techImage").attr("src", "{{url_for('static', filename='assets/img/logos/default.png')}}");
                    return false;
             }
-	
+
+            $("#techImage").attr("src", "{{url_for('static', filename='assets/img/logos/default.png')}}");
             $("#techImage").attr("src", "{{url_for('static', filename='assets/img/a.jpg')}}" + "?" + new Date().getTime());
 
             singlePredictions = "Rate of Change: measures the rate of change in 5 day increments\n";
@@ -112,8 +112,8 @@
             $("#techPredictions").text(singlePredictions);
 
             weightedPredictions = data[8] + " current price: " + curPrice + "\n";
-            weightedPredictions += "In the near future, the predicted stock price is: " + data[6].toFixed(2) + "\n";
-            weightedPredictions += "In the farther future, the predicted stock price is: " + data[7].toFixed(2);
+            weightedPredictions += "In the near future, the predicted stock price is: " + data[4].toFixed(2) + "\n";
+            weightedPredictions += "In the farther future, the predicted stock price is: " + data[5].toFixed(2);
 
             $("#weightedPredictions").text(weightedPredictions);
 
@@ -124,7 +124,6 @@
         });
       });
     </script>
-
 
 
 
@@ -393,7 +392,7 @@
   <div class="background" style="background-image:url(/static/assets/img/background/img-08.jpg)"></div>
 </section>
 
-<!-- Slide 5 AutoTrader(#08) -->
+<!-- Slide 4 AutoTrader(#08) -->
 <section id="AutoTrader" class="slide fade-6 kenBurns">
   <div class="content">
     <div class="container">
