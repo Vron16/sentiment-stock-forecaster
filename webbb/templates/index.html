@@ -242,7 +242,7 @@
 
         <div class="fix-12-12">
           <div class="fix-3-12">
-                <img height = "150" width = "300" class="wide ae-1"  src="{{url_for('static', filename='assets/img/logos/aboutus.png')}}"/>
+                <img height = "150" width = "300" class="wide ae-1"  src="{{url_for('static', filename='assets/img/logos/plswork.png')}}"/>
           </div>
 
           <div class="margin-top-2">
@@ -279,6 +279,39 @@
       </div>
     </div>
   </div>
+  <div class="background" style="background-image:url(/static/assets/img/background/img-08.jpg)"></div>
+</section>
+
+
+
+<!-- Slide 2 (#08) Sentiment -->
+<section id="SentAnalyzer" class="slide fade-6 kenBurns">
+  <div class="content">
+    <div class="container">
+      <div class="wrap">
+        <div class="fix-12-12">
+          <div class="fix-3-12">
+            <img height = "150" width = "300" class="wide ae-1"  src="{{url_for('static', filename='assets/img/logos/sentiment.png')}}"/>
+          </div>
+          <div class="margin-top-0">
+              <p class="ae-3"><span class="opacity-8">We can give you an estimated prediction of a stock of your choosing based on news headlines. <b> Check it out!</b> </span></p>
+          </div>
+            <div id = "header" class="margin-top-0">
+              <form class="slides-form" action="#">
+                <input type=text class="input-8 ae-6 fromCenter" name=stockName placeholder="Enter stock name" val="" id = "myInput" onkeyup="myFunction()"/>
+                <a href=#SentttAnalyzer  id=search><button type="submit" class="button blue gradient ae-7 fromCenter" name="button">Search</button></a>
+{#                  "href=#SentttAnalyzer"#}
+                  <p id=userInput> </p>
+              </form>
+                <ul id="myUL"></ul>
+          </div>
+        </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="background" style="background-image:url(/static/assets/img/background/img-08.jpg)"></div>
 </section>
 
