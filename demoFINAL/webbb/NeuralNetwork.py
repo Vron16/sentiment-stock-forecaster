@@ -70,4 +70,3 @@ class Neural_Network(object):
         return xPredicted
 
 
-# full tutorial: https://enlight.nyc/neural-network
