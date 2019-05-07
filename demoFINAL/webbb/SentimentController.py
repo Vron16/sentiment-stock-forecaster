@@ -16,7 +16,7 @@ class SentimentController:
         avgScore20 = self.calcAvgSentScore(headlines20)
         avgScore30 = self.calcAvgSentScore(headlines30)
         x = [5, 20, 30]
-        y = [avgScore5, avgScore20, avgScore30]
+        y = [avgScore30, avgScore20, avgScore5]
         plt.plot(x, y)
         plt.xlabel('Time in days')
         plt.ylabel('Sentiment score')
