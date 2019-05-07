@@ -1,3 +1,7 @@
+#written by: Sunny Feng, Nicholas Heah, Manish Kewalramani
+#tested by: Sunny Feng, Nicholas Heah, Manish Kewalramani
+#debugged by: Sunny Feng, Nicholas Heah, Manish Kewalramani
+
 import mysql.connector as ms
 import datetime
 import mm
