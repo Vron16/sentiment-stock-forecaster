@@ -2,6 +2,11 @@
 ### - STATSMODELS
 ### - SCIPY
 ### DATELINE SHOULD BE A DEFAULT PACKAGE
+
+#written by: Sunny Feng, Nicholas Heah, Manish Kewalramani
+#tested by: Sunny Feng, Nicholas Heah, Manish Kewalramani
+#debugged by: Sunny Feng, Nicholas Heah, Manish Kewalramani
+
 from statsmodels.tsa.arima_model import ARIMA
 import datetime
 import numpy as np
